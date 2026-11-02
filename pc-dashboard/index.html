@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园考勤助手 - 管理后台</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif; background:#F5F7FA; color:#2D223C; }
+.header { background:linear-gradient(135deg,#6C5CE7,#A29BFE); color:#fff; padding:24px 40px; display:flex; justify-content:space-between; align-items:center; }
+.header h1 { font-size:24px; }
+.header p { opacity:0.85; font-size:14px; }
+.container { max-width:1200px; margin:0 auto; padding:24px; }
+.login-box { max-width:380px; margin:80px auto; background:#fff; border-radius:16px; padding:40px; box-shadow:0 8px 32px rgba(108,92,231,0.12); }
+.login-box h2 { text-align:center; margin-bottom:24px; color:#2D223C; }
+.login-box input { width:100%; height:44px; border:2px solid #EDE7F6; border-radius:10px; padding:0 16px; font-size:15px; margin-bottom:16px; outline:none; }
+.login-box input:focus { border-color:#6C5CE7; }
+.login-box button { width:100%; height:44px; background:#6C5CE7; color:#fff; border:none; border-radius:10px; font-size:16px; cursor:pointer; }
+.login-box button:hover { opacity:0.9; }
+.login-box .error { color:#FF6B7A; font-size:13px; text-align:center; margin-top:8px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px; }
+.stat-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(108,92,231,0.08); }
+.stat-card h3 { font-size:13px; color:#8E82A5; margin-bottom:8px; }
+.stat-card .num { font-size:32px; font-weight:800; color:#6C5CE7; }
+.section { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; box-shadow:0 2px 8px rgba(108,92,231,0.08); }
+.section h2 { font-size:18px; margin-bottom:16px; color:#2D223C; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th,td { text-align:left; padding:10px 12px; border-bottom:1px solid #F0EEFF; }
+th { font-weight:600; color:#8E82A5; font-size:12px; }
+.logout { color:#fff; opacity:0.85; cursor:pointer; padding:6px 16px; border:1px solid rgba(255,255,255,0.3); border-radius:20px; font-size:14px; }
+.logout:hover { opacity:1; background:rgba(255,255,255,0.1); }
+.error-box { text-align:center; padding:40px; color:#FF6B7A; font-size:15px; }
+</style>
+</head>
+<body>
+<div class="header" id="header">
+  <div><h1>📊 校园考勤助手 · 管理后台</h1><p>数据报表平台</p></div>
+  <span class="logout" id="logoutBtn" style="display:none;" onclick="logout()">退出登录</span>
+</div>
+<div class="container" id="app"><div style="text-align:center;padding:80px;color:#8E82A5;">加载中...</div></div>
+
+<script>
+const BASE = 'http://localhost:8081/api';
+
+function getToken() { return localStorage.getItem('adminToken') || ''; }
+
+async function api(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  const token = getToken();
+  if (token) headers['Authorization'] = token;
+  const res = await fetch(BASE + path, { ...opts, headers });
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch(e) { throw new Error('响应非JSON: ' + text.substring(0,200)); }
+  if (data.code === 401) { localStorage.removeItem('adminToken'); showLogin(data.message); return null; }
+  if (data.code !== 200) throw new Error(data.message || '请求失败');
+  return data.data;
+}
+
+function showLogin(errMsg) {
+  document.getElementById('logoutBtn').style.display = 'none';
+  document.getElementById('app').innerHTML = `
+    <div class="login-box">
+      <h2>🔐 管理员登录</h2>
+      <input type="text" id="user" placeholder="学号/工号" value="admin" />
+      <input type="password" id="pass" placeholder="密码" value="123456" />
+      <button onclick="doLogin()">登 录</button>
+      <div class="error" id="err">${errMsg || ''}</div>
+    </div>`;
+}
+
+async function doLogin() {
+  const user = document.getElementById('user').value;
+  const pass = document.getElementById('pass').value;
+  try {
+    const result = await api('/auth/login', {
+      method: 'POST', body: JSON.stringify({ studentId: user, password: pass })
+    });
+    localStorage.setItem('adminToken', result.token);
+    location.reload();
+  } catch(e) {
+    showLogin(e.message);
+  }
+}
+
+function logout() { localStorage.removeItem('adminToken'); location.reload(); }
+
+async function loadAll() {
+  const token = getToken();
+  if (!token) { showLogin(); return; }
+  document.getElementById('logoutBtn').style.display = 'inline';
+  try {
+    const d = await api('/admin/dashboard');
+    document.getElementById('app').innerHTML = `
+      <div class="stats-grid">
+        <div class="stat-card"><h3>👨‍🎓 学生总数</h3><div class="num">${d.studentCount || 0}</div></div>
+        <div class="stat-card"><h3>👨‍🏫 教师总数</h3><div class="num">${d.teacherCount || 0}</div></div>
+        <div class="stat-card"><h3>📋 请假待批</h3><div class="num">${d.leavePending || 0}</div></div>
+        <div class="stat-card"><h3>✅ 请假已批</h3><div class="num">${d.leaveApproved || 0}</div></div>
+        <div class="stat-card"><h3>🔧 待修报修</h3><div class="num">${d.repairPending || 0}</div></div>
+        <div class="stat-card"><h3>✅ 已修报修</h3><div class="num">${d.repairDone || 0}</div></div>
+      </div>
+      <div class="section"><h2>📋 系统概况 <button onclick="location.reload()" style="float:right;background:#6C5CE7;color:#fff;border:none;padding:4px 14px;border-radius:16px;cursor:pointer;font-size:12px;">刷新</button></h2>
+        <table><tr><th>指标</th><th>数量</th></tr>
+          <tr><td>学生账号</td><td>${d.studentCount || 0}</td></tr>
+          <tr><td>教师账号</td><td>${d.teacherCount || 0}</td></tr>
+        </table>
+      </div>
+      <div class="section"><h2>📋 请假统计</h2>
+        <table><tr><th>状态</th><th>数量</th></tr>
+          <tr><td>待审批</td><td>${d.leavePending||0}</td></tr>
+          <tr><td>已通过</td><td>${d.leaveApproved||0}</td></tr>
+          <tr><td>已驳回</td><td>${d.leaveRejected||0}</td></tr>
+          <tr><td><strong>总计</strong></td><td><strong>${d.leaveTotal||0}</strong></td></tr>
+        </table>
+      </div>
+      <div class="section"><h2>🔧 报修统计</h2>
+        <table><tr><th>状态</th><th>数量</th></tr>
+          <tr><td>待处理</td><td>${d.repairPending||0}</td></tr>
+          <tr><td>已处理</td><td>${d.repairDone||0}</td></tr>
+          <tr><td><strong>总计</strong></td><td><strong>${d.repairTotal||0}</strong></td></tr>
+        </table>
+      </div>
+      <div style="text-align:center;padding:20px;color:#B8B0CC;font-size:13px;">
+        校园考勤助手 v2.0 &copy; 2026 &nbsp;|&nbsp; <a href="http://localhost:8081/swagger-ui.html" target="_blank" style="color:#6C5CE7;">API 文档</a>
+      </div>`;
+  } catch(e) {
+    document.getElementById('app').innerHTML = `<div class="error-box">❌ 加载失败：${e.message}</div>`;
+  }
+}
+loadAll();
+</script>
+</body>
+</html>

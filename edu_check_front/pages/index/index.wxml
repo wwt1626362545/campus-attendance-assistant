@@ -1,0 +1,222 @@
+<!-- =============================================
+  晨光校园 · 首页 — 学生/教师双角色仪表盘
+  v2.0 个性化视觉设计
+  ============================================= -->
+<view class="page-container">
+
+  <!-- ===== 用户信息头部 - 晨光渐变 ===== -->
+  <view class="hero-section">
+    <view class="hero-bg">
+      <view class="hero-bg-circle hero-circle-1"></view>
+      <view class="hero-bg-circle hero-circle-2"></view>
+      <view class="hero-bg-circle hero-circle-3"></view>
+    </view>
+    <view class="hero-content">
+      <view class="hero-user">
+        <view class="hero-avatar-wrap">
+          <image src="{{userInfo.avatar}}" mode="aspectFill" class="hero-avatar"></image>
+        </view>
+        <view class="hero-info">
+          <text class="hero-name">{{userInfo.name}}</text>
+          <text class="hero-desc">{{userInfo.college}}</text>
+        </view>
+      </view>
+      <view class="hero-badge {{role === 'teacher' || role === 'admin' ? 'badge-teacher' : 'badge-student'}}">
+        <text class="hero-badge-text" wx:if="{{role === 'teacher' || role === 'admin'}}">🎓 教师账号</text>
+        <text class="hero-badge-text" wx:else>🔥 已连续 {{stats.streakDays || 0}} 天打卡</text>
+      </view>
+    </view>
+    <!-- 装饰线条 -->
+    <view class="hero-decoration">
+      <view class="deco-line"></view>
+      <view class="deco-dot"></view>
+      <view class="deco-line"></view>
+    </view>
+  </view>
+
+  <!-- 离线提示 -->
+  <view class="offline-banner" wx:if="{{!connected}}">
+    <text class="offline-icon">⚠️</text>
+    <text>未连接到后端服务器，部分数据可能不可用</text>
+  </view>
+
+  <!-- ===== 轮播图 ===== -->
+  <swiper class="banner-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{4000}}" circular="{{true}}" indicator-color="rgba(108,92,231,0.15)" indicator-active-color="#6C5CE7">
+    <swiper-item wx:for="{{banners}}" wx:key="index">
+      <image src="{{item.src}}" mode="aspectFill" class="banner-img" binderror="onBannerError" data-index="{{index}}"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- ===== 学生视图 ===== -->
+  <block wx:if="{{role !== 'teacher' && role !== 'admin'}}">
+    <!-- 打卡记录 — 旋转轮盘 -->
+    <view class="section-header">
+      <view class="section-title-line"></view>
+      <text class="section-title-text">打卡记录</text>
+      <view class="section-title-line"></view>
+    </view>
+
+    <scroll-view class="wheel-scroll" scroll-x enhanced show-scrollbar="{{false}}" snap="{{true}}">
+      <view class="wheel-track">
+        <view class="wheel-card" bindtap="goDormHistory">
+          <view class="wheel-bg wheel-dorm-bg">
+            <view class="wheel-ring"></view>
+            <view class="wheel-icon-box">
+              <text class="wheel-emoji">🏠</text>
+            </view>
+            <text class="wheel-stat-num">{{stats.dormTotal}}</text>
+            <text class="wheel-name">查寝打卡</text>
+
+          </view>
+        </view>
+
+        <view class="wheel-card" bindtap="goClassHistory">
+          <view class="wheel-bg wheel-class-bg">
+            <view class="wheel-ring"></view>
+            <view class="wheel-icon-box">
+              <text class="wheel-emoji">📖</text>
+            </view>
+            <text class="wheel-stat-num">{{stats.classTotal}}</text>
+            <text class="wheel-name">上课打卡</text>
+
+          </view>
+        </view>
+
+        <view class="wheel-card" bindtap="goInternHistory">
+          <view class="wheel-bg wheel-intern-bg">
+            <view class="wheel-ring"></view>
+            <view class="wheel-icon-box">
+              <text class="wheel-emoji">💼</text>
+            </view>
+            <text class="wheel-stat-num">{{stats.internTotal}}</text>
+            <text class="wheel-name">实习打卡</text>
+
+          </view>
+        </view>
+
+      </view>
+    </scroll-view>
+
+
+    <view class="section-header">
+      <view class="section-title-line"></view>
+      <text class="section-title-text">所有打卡</text>
+      <view class="section-title-line"></view>
+    </view>
+
+    <scroll-view class="wheel-scroll" scroll-x enhanced show-scrollbar="{{false}}" snap="{{true}}" scroll-into-view="wheel-dorm">
+      <view class="wheel-track">
+
+        <!-- 查寝打卡 -->
+        <view class="wheel-card" id="wheel-dorm" bindtap="goDormCheckin">
+          <view class="wheel-bg wheel-dorm-bg">
+            <view class="wheel-ring"></view>
+            <view class="wheel-icon-box">
+              <text class="wheel-emoji">🏠</text>
+            </view>
+            <text class="wheel-name">查寝打卡</text>
+            <text class="wheel-desc">定位 · 人脸识别</text>
+
+          </view>
+        </view>
+
+        <!-- 上课打卡 -->
+        <view class="wheel-card" id="wheel-class" bindtap="goClassCheckin">
+          <view class="wheel-bg wheel-class-bg">
+            <view class="wheel-ring"></view>
+            <view class="wheel-icon-box">
+              <text class="wheel-emoji">📖</text>
+            </view>
+            <text class="wheel-name">上课打卡</text>
+            <text class="wheel-desc">限时定位 · 动态码</text>
+
+          </view>
+        </view>
+
+        <!-- 实习打卡 -->
+        <view class="wheel-card" id="wheel-intern" bindtap="goInternCheckin">
+          <view class="wheel-bg wheel-intern-bg">
+            <view class="wheel-ring"></view>
+            <view class="wheel-icon-box">
+              <text class="wheel-emoji">💼</text>
+            </view>
+            <text class="wheel-name">实习打卡</text>
+            <text class="wheel-desc">定位签到 · 日志上报</text>
+
+          </view>
+        </view>
+
+      </view>
+    </scroll-view>
+
+    <!-- 中心指示线 -->
+    <view class="wheel-indicator">
+      <view class="wheel-indicator-line"></view>
+    </view>
+  </block>
+
+  <!-- ===== 教师视图 ===== -->
+  <block wx:if="{{role === 'teacher' || role === 'admin'}}">
+    <view class="section-header">
+      <view class="section-title-line"></view>
+      <text class="section-title-text">🎓 教师工作台</text>
+      <view class="section-title-line"></view>
+    </view>
+
+    <view class="feature-grid">
+      <view class="feature-card" bindtap="goStudents" hover-class="feature-active">
+        <view class="feature-bg feature-teacher-students">
+          <view class="feature-icon-box">
+            <text class="feature-emoji">👥</text>
+          </view>
+          <text class="feature-name">学生管理</text>
+          <text class="feature-desc">查看签到状态</text>
+        </view>
+      </view>
+
+      <view class="feature-card" bindtap="goLeaveApprove" hover-class="feature-active">
+        <view class="feature-bg feature-teacher-leave">
+          <view class="feature-icon-box">
+            <text class="feature-emoji">📋</text>
+          </view>
+          <text class="feature-name">请假审批</text>
+          <text class="feature-desc">处理待审批申请</text>
+        </view>
+      </view>
+
+      <view class="feature-card" bindtap="goDynamicCode" hover-class="feature-active">
+        <view class="feature-bg feature-teacher-code">
+          <view class="feature-icon-box">
+            <text class="feature-emoji">🔑</text>
+          </view>
+          <text class="feature-name">动态码管理</text>
+          <text class="feature-desc">生成签到动态码</text>
+        </view>
+      </view>
+
+      <view class="feature-card" bindtap="goTeacherPanel" hover-class="feature-active">
+        <view class="feature-bg feature-teacher-data">
+          <view class="feature-icon-box">
+            <text class="feature-emoji">📊</text>
+          </view>
+          <text class="feature-name">数据概览</text>
+          <text class="feature-desc">今日打卡统计</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- ===== 每日思语 ===== -->
+  <view class="daily-section">
+    <view class="daily-bg-deco"></view>
+    <view class="daily-header">
+      <text class="daily-label">📖 每日思语</text>
+    </view>
+    <text class="daily-content">"广大青年要坚定不移听党话、跟党走，怀抱梦想又脚踏实地，敢想敢为又善作善成，立志做有理想、敢担当、能吃苦、肯奋斗的新时代好青年。"</text>
+    <view class="daily-footer">
+      <view class="daily-line"></view>
+      <text class="daily-source">—— 寄语新时代青年</text>
+    </view>
+  </view>
+
+</view>

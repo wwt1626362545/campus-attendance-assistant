@@ -1,0 +1,31 @@
+# Local configuration and secrets
+.env
+.env.*
+**/application.yml
+**/application-local.yml
+
+# Uploaded user content
+edu_check_backend/uploads/
+
+# Build output
+edu_check_backend/target/
+**/node_modules/
+__pycache__/
+*.class
+
+# IDE and local tooling
+.idea/
+.claude/
+*.iml
+.vscode/
+project.private.config.json
+**/project.private.config.json
+
+# Logs and temporary files
+*.log
+test_chr.txt
+test_out.txt
+
+# OS files
+.DS_Store
+Thumbs.db

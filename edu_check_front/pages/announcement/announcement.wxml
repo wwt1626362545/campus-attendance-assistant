@@ -1,0 +1,80 @@
+<view class="page-container">
+  <!-- 页面头部 -->
+  <view class="announce-header">
+    <text class="page-title">📬 校园公告</text>
+    <view class="header-actions">
+      <view class="search-btn" bindtap="toggleSearch">
+        <text>🔍</text>
+      </view>
+      <text class="publish-btn" wx:if="{{isTeacher}}" bindtap="goPublish">发布管理</text>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar {{searchVisible ? 'search-expand' : ''}}">
+    <text class="search-icon">🔍</text>
+    <input class="search-input" placeholder="搜索公告标题..." bindinput="onSearch" value="{{searchKeyword}}" />
+    <text class="search-clear" wx:if="{{searchKeyword}}" bindtap="clearSearch">✕</text>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="category-list">
+      <view class="category-tag {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">
+        <text>全部</text>
+      </view>
+      <view class="category-tag {{showFavOnly ? 'active' : ''}}" bindtap="toggleFavOnly">
+        <text>⭐ 收藏</text>
+      </view>
+      <view class="category-tag {{currentCategory === 'notice' ? 'active' : ''}}" bindtap="switchCategory" data-category="notice">
+        <text>📋 通知公告</text>
+      </view>
+      <view class="category-tag {{currentCategory === 'activity' ? 'active' : ''}}" bindtap="switchCategory" data-category="activity">
+        <text>🎉 活动预告</text>
+      </view>
+      <view class="category-tag {{currentCategory === 'academic' ? 'active' : ''}}" bindtap="switchCategory" data-category="academic">
+        <text>📚 学术讲座</text>
+      </view>
+      <view class="category-tag {{currentCategory === 'policy' ? 'active' : ''}}" bindtap="switchCategory" data-category="policy">
+        <text>📜 思政教育</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 公告列表 -->
+  <view class="announce-list">
+    <view class="announce-item" wx:for="{{announceList}}" wx:for-item="item" wx:key="id" hover-class="item-active">
+      <view class="announce-body" bindtap="viewDetail" data-id="{{item.id}}">
+        <view class="announce-top">
+          <text class="type-tag {{item.type}}">{{item.typeName}}</text>
+        </view>
+        <text class="announce-title">{{item.title}}</text>
+        <text class="announce-summary">{{item.summary}}</text>
+        <view class="announce-footer">
+          <text class="announce-date">{{item.date}}</text>
+          <text class="announce-reads">阅读量 {{item.readCount || 0}}</text>
+        </view>
+      </view>
+      <!-- 收藏按钮 -->
+      <view class="announce-actions">
+        <view class="action-btn" bindtap="toggleFav" data-id="{{item.id}}">
+          <text class="fav-icon {{item.isFav ? 'fav-active' : ''}}">{{item.isFav ? '⭐' : '☆'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{announceList.length === 0 && !loading}}">
+    <text>📭</text>
+    <text wx:if="{{showFavOnly}}">暂无收藏的公告</text>
+    <text wx:else>暂无公告</text>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{announceList.length > 0}}" bindtap="loadMore">
+    <view class="load-more-line"></view>
+    <text class="load-more-text">{{hasMore ? '加载更多' : '没有更多了'}}</text>
+    <view class="load-more-line"></view>
+  </view>
+</view>

@@ -1,0 +1,113 @@
+/* =============================================
+  晨光校园 · 请假申请表单样式 v2.0
+  ============================================= */
+
+.page-container {
+  padding: 32rpx;
+}
+
+.page-header {
+  margin-bottom: 28rpx;
+}
+
+/* 表单卡片 */
+.form-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 36rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+.form-group {
+  margin-bottom: 28rpx;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #2D223C;
+  display: block;
+  margin-bottom: 14rpx;
+  font-weight: 600;
+}
+
+/* 双列布局 */
+.form-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.form-half {
+  flex: 1;
+}
+
+/* 选择器包装 */
+.picker-wrap {
+  background: #F5F3FA;
+  border-radius: 14rpx;
+  overflow: hidden;
+}
+
+.picker-value {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 22rpx 24rpx;
+  font-size: 28rpx;
+  color: #2D223C;
+  transition: all 0.2s;
+}
+
+.picker-value:active {
+  background: #EDE7F6;
+}
+
+.picker-value.placeholder {
+  color: #B8B0CC;
+}
+
+.picker-label {
+  font-size: 24rpx;
+}
+
+/* 文本域 */
+.form-textarea {
+  width: 100%;
+  background: #F5F3FA;
+  border-radius: 14rpx;
+  padding: 22rpx 24rpx;
+  font-size: 28rpx;
+  color: #2D223C;
+  height: 240rpx;
+  line-height: 1.6;
+  transition: all 0.2s;
+}
+
+.form-textarea:focus {
+  background: #fff;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+  border: 2rpx solid #6C5CE7;
+  padding: 20rpx 22rpx;
+}
+
+.form-textarea::placeholder {
+  color: #B8B0CC;
+  font-size: 26rpx;
+}
+
+.form-counter {
+  display: block;
+  text-align: right;
+  font-size: 20rpx;
+  color: #B8B0CC;
+  margin-top: 8rpx;
+}
+
+/* 提交按钮 */
+.btn-primary {
+  margin-top: 8rpx;
+}

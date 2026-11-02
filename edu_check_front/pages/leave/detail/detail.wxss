@@ -1,0 +1,99 @@
+/* =============================================
+  晨光校园 · 请假详情页样式 v2.0
+  ============================================= */
+
+.page-container { padding: 32rpx; }
+
+.leave-detail-card { padding: 0; overflow: hidden; }
+
+/* 状态横幅 */
+.detail-status-banner {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 32rpx 36rpx;
+}
+
+.detail-status-banner.pending {
+  background: linear-gradient(135deg, #FFF5E6, #FFECD2);
+}
+
+.detail-status-banner.approved {
+  background: linear-gradient(135deg, #E8FAF3, #D4F5E8);
+}
+
+.detail-status-banner.rejected {
+  background: linear-gradient(135deg, #FFEEF0, #FFE3E5);
+}
+
+.status-icon { font-size: 48rpx; }
+
+.status-info { flex: 1; }
+.status-name { font-size: 32rpx; font-weight: 700; color: #2D223C; display: block; margin-bottom: 4rpx; }
+.status-desc { font-size: 24rpx; color: #8E82A5; }
+
+/* 详情区块 */
+.detail-section {
+  padding: 28rpx 36rpx;
+}
+
+.detail-section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #2D223C;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 16rpx;
+  font-size: 26rpx;
+}
+
+.detail-row:last-child { margin-bottom: 0; }
+
+.detail-label {
+  width: 160rpx;
+  color: #8E82A5;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  flex: 1;
+  color: #2D223C;
+}
+
+.days-highlight {
+  color: #6C5CE7;
+  font-weight: 600;
+}
+
+/* 请假类型标签 */
+.leave-type-badge {
+  display: inline-block;
+  padding: 4rpx 18rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+.leave-type-badge.sick { background: #FFEEF0; color: #FF5A6A; }
+.leave-type-badge.personal { background: #FFF5E6; color: #E89B3C; }
+.leave-type-badge.official { background: #F0EEFF; color: #6C5CE7; }
+.leave-type-badge.annual { background: #E8FAF3; color: #3BAD85; }
+
+/* 事由 */
+.detail-reason {
+  font-size: 26rpx;
+  color: #2D223C;
+  line-height: 1.8;
+}
+
+/* 提交时间 */
+.detail-submit-info {
+  padding: 20rpx 36rpx 28rpx;
+  font-size: 22rpx;
+  color: #B8B0CC;
+  text-align: center;
+  border-top: 2rpx solid #F3EFF9;
+}

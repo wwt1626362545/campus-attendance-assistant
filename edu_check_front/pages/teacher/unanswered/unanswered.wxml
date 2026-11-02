@@ -1,0 +1,34 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">🤔 未命中问题</text>
+    <text class="page-subtitle">填写答案后可直接导入知识库</text>
+  </view>
+
+  <view class="toolbar" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24rpx;flex-wrap:wrap;gap:12rpx;">
+    <text style="font-size:24rpx;color:#8E82A5;">共 {{list.length}} 条</text>
+    <view style="display:flex;gap:12rpx;">
+      <view class="btn-outline" bindtap="exportTxt">📋 复制TXT</view>
+      <view class="btn-primary-sm" bindtap="importAll" disabled="{{importing}}">{{importing ? '导入中...' : '⚡ 一键导入'}}</view>
+    </view>
+  </view>
+
+  <view class="question-list">
+    <view class="question-item" wx:for="{{list}}" wx:key="id" wx:for-item="item">
+      <text class="question-text">{{item.question}}</text>
+      <view class="question-footer">
+        <text class="question-date">{{item.createdAt || ''}}</text>
+        <text class="question-cat">{{item.category || '未分类'}}</text>
+      </view>
+      <view class="answer-area">
+        <textarea class="answer-input" placeholder="输入答案后点击一键导入" value="{{item.answer}}" bindinput="onAnswerInput" data-id="{{item.id}}" />
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{list.length === 0 && !loading}}">
+    <text style="font-size:48rpx;">🎉</text>
+    <text style="font-size:26rpx;color:#B8B0CC;margin-top:16rpx;">暂无未命中问题</text>
+  </view>
+
+  <view wx:if="{{loading}}" style="text-align:center;padding:48rpx;color:#B8B0CC;">加载中...</view>
+</view>

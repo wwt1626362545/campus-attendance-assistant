@@ -1,0 +1,34 @@
+﻿<view class="page-container">
+  <view class="announce-detail-card">
+    <!-- 头部 -->
+    <view class="detail-header">
+      <view class="detail-type-tag {{detail.type}}">
+        <text wx:if="{{detail.type === 'notice'}}">📋</text>
+        <text wx:elif="{{detail.type === 'activity'}}">🎉</text>
+        <text wx:elif="{{detail.type === 'academic'}}">📚</text>
+        <text wx:else>📜</text>
+      </view>
+      <view class="detail-type-name {{detail.type}}">{{detail.typeName}}</view>
+    </view>
+
+    <text class="detail-title">{{detail.title}}</text>
+
+    <view class="detail-meta">
+      <text class="detail-date">{{detail.date}}</text>
+      <text class="detail-dept">{{detail.department}}</text>
+      <text class="detail-reads">阅读量 {{detail.readCount}}</text>
+    </view>
+
+    <view class="divider"></view>
+
+    <!-- 正文 -->
+    <view class="detail-content">
+      <text>{{detail.content}}</text>
+    </view>
+
+    <!-- 底部 -->
+    <view class="detail-footer">
+      <text class="detail-source">来源：{{detail.source || detail.department}}</text>
+    </view>
+  </view>
+</view>

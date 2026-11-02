@@ -1,0 +1,189 @@
+/* =============================================
+  晨光校园 · 学生管理页面样式 v2.0
+  ============================================= */
+
+.page-container {
+  padding: 32rpx;
+}
+
+/* 搜索栏 */
+.search-wrap {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+}
+
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #2D223C;
+}
+
+.search-input::placeholder {
+  color: #B8B0CC;
+}
+
+/* 工具栏 */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.toolbar-count {
+  font-size: 24rpx;
+  color: #8E82A5;
+}
+
+.toolbar-refresh {
+  font-size: 24rpx;
+  color: #6C5CE7;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.filter-tag {
+  font-size: 22rpx;
+  color: #6C5CE7;
+  background: #F0EEFF;
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+  color: #8E82A5;
+  font-size: 26rpx;
+  gap: 16rpx;
+}
+
+.loading-ring {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid #EDE7F6;
+  border-top-color: #6C5CE7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 学生列表 */
+.student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: all 0.2s;
+}
+
+.item-hover {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.12);
+}
+
+.student-avatar-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  border: 2rpx solid #EDE7F6;
+}
+
+.student-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.student-detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+  margin-bottom: 4rpx;
+}
+
+.student-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2D223C;
+}
+
+.student-id {
+  font-size: 22rpx;
+  color: #8E82A5;
+}
+
+.student-class {
+  font-size: 24rpx;
+  color: #8E82A5;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.student-tags {
+  display: flex;
+  gap: 10rpx;
+}
+
+.student-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20rpx;
+  flex-shrink: 0;
+  padding: 12rpx 16rpx;
+  background: #F8F7FF;
+  border-radius: 14rpx;
+}
+
+.student-stats-num {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #6C5CE7;
+  font-variant-numeric: tabular-nums;
+}
+
+.student-stats-label {
+  font-size: 18rpx;
+  color: #8E82A5;
+}

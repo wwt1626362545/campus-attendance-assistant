@@ -1,0 +1,53 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">🏠 查寝打卡记录</text>
+    <text class="page-subtitle">查看历史查寝详情</text>
+  </view>
+
+  <!-- 统计摘要 -->
+  <view class="summary-bar">
+    <view class="summary-item">
+      <text class="summary-num" >{{summary.total}}</text>
+      <text class="summary-label">总次数</text>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <text class="summary-num" >{{summary.normal}}</text>
+      <text class="summary-label">正常</text>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <text class="summary-num" >{{summary.late}}</text>
+      <text class="summary-label">晚归</text>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <text class="summary-num" >{{summary.missed}}</text>
+      <text class="summary-label">未打卡</text>
+    </view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="history-list">
+    <view class="history-item" wx:for="{{list}}" wx:key="index" hover-class="item-hover">
+      <view class="history-left">
+        <text class="history-date">{{item.date}}</text>
+        <text class="history-time">{{item.checkinTime || '未打卡'}}</text>
+      </view>
+      <text class="tag {{item.status === 'normal' ? 'tag-success' : (item.status === 'late' ? 'tag-warning' : 'tag-danger')}}">
+        {{item.status === 'normal' ? '正常' : (item.status === 'late' ? '晚归' : '未打卡')}}
+      </text>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{list.length === 0}}">
+    <text>📭</text>
+    <text>暂无打卡记录</text>
+  </view>
+
+  <view class="load-more" wx:if="{{list.length > 0}}" bindtap="loadMore">
+    <view class="load-more-line"></view>
+    <text class="load-more-text">{{hasMore ? '加载更多' : '没有更多了'}}</text>
+    <view class="load-more-line"></view>
+  </view>
+</view>

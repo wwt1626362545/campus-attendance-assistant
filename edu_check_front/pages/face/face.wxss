@@ -1,0 +1,73 @@
+/* =============================================
+  晨光校园 · 人脸识别页面样式 v2.0
+  ============================================= */
+
+.page-header { margin-bottom: 24rpx; }
+
+.face-info-card {
+  display: flex; flex-direction: column;
+  align-items: center; padding: 48rpx 32rpx;
+}
+
+.face-status-icon {
+  width: 120rpx; height: 120rpx; border-radius: 50%;
+  background: #F5F3FA; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 56rpx; margin-bottom: 24rpx;
+  transition: all 0.3s;
+}
+.face-status-icon.registered {
+  background: #E8FAF3;
+  box-shadow: 0 4rpx 16rpx rgba(85,201,166,0.2);
+}
+
+.face-status-title {
+  font-size: 32rpx; font-weight: 700;
+  color: #2D223C; margin-bottom: 12rpx;
+}
+.face-status-desc {
+  font-size: 26rpx; color: #8E82A5;
+  text-align: center; line-height: 1.6;
+  margin-bottom: 32rpx;
+}
+
+/* 拍照预览 */
+.face-preview-area {
+  width: 100%; margin-bottom: 28rpx;
+  display: flex; flex-direction: column;
+  align-items: center;
+}
+.face-preview-img {
+  width: 320rpx; height: 320rpx;
+  border-radius: 24rpx;
+  border: 4rpx solid #EDE7F6;
+}
+.face-preview-actions { margin-top: 16rpx; }
+.retake-btn {
+  font-size: 24rpx; color: #6C5CE7;
+  font-weight: 500; padding: 8rpx 24rpx;
+}
+
+/* 结果提示 */
+.face-result {
+  width: 100%; padding: 20rpx 24rpx;
+  border-radius: 14rpx; margin-bottom: 28rpx;
+  font-size: 26rpx; font-weight: 500;
+  text-align: center; line-height: 1.5;
+}
+.result-success {
+  background: #E8FAF3; color: #3BAD85;
+}
+.result-fail {
+  background: #FFEEF0; color: #FF5A6A;
+}
+
+.face-tips-card { padding: 28rpx; }
+.tips-title {
+  font-size: 28rpx; font-weight: 600;
+  color: #2D223C; margin-bottom: 16rpx;
+}
+.tip-item {
+  font-size: 24rpx; color: #8E82A5;
+  line-height: 1.8; margin-bottom: 4rpx;
+}

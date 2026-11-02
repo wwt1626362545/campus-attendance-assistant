@@ -1,0 +1,96 @@
+/* =============================================
+  晨光校园 · 编辑资料页面样式 v2.0
+  ============================================= */
+
+.page-header { margin-bottom: 28rpx; }
+
+.edit-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 36rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+/* 头像编辑 */
+.edit-avatar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.edit-avatar-row .form-label { margin-bottom: 0; }
+
+.edit-avatar-wrap {
+  position: relative;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3rpx solid #EDE7F6;
+}
+
+.edit-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.edit-avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.edit-avatar-wrap:active .edit-avatar-overlay {
+  opacity: 1;
+}
+
+.edit-avatar-overlay text {
+  font-size: 36rpx;
+}
+
+/* 表单 */
+.form-group { margin-bottom: 28rpx; }
+.form-group:last-child { margin-bottom: 0; }
+
+.form-label {
+  font-size: 28rpx;
+  color: #2D223C;
+  display: block;
+  margin-bottom: 14rpx;
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: #F5F3FA;
+  border-radius: 14rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #2D223C;
+  transition: all 0.2s;
+}
+
+.form-input:focus {
+  background: #fff;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+  border: 2rpx solid #6C5CE7;
+  padding: 0 22rpx;
+}
+
+.form-input::placeholder { color: #B8B0CC; font-size: 26rpx; }
+
+.form-input[disabled] {
+  opacity: 0.6;
+  background: #F3F0F9;
+}

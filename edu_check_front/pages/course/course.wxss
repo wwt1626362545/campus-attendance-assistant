@@ -1,0 +1,526 @@
+/* =============================================
+  晨光校园 · 上课打卡页面样式 v2.0
+  ============================================= */
+
+.page-header {
+  margin-bottom: 20rpx;
+}
+
+/* 通用卡片头部 */
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18rpx;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+}
+
+/* 课程项 */
+.course-card {
+  padding: 28rpx;
+}
+
+.course-item {
+  margin-bottom: 16rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid #F3EFF9;
+  transition: all 0.2s;
+}
+
+.course-item:active {
+  opacity: 0.8;
+}
+
+.course-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.course-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.course-icon-bg {
+  width: 72rpx;
+  height: 72rpx;
+  background: linear-gradient(135deg, #FFF5E6, #FFECD2);
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.course-icon {
+  font-size: 34rpx;
+}
+
+.course-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+  margin-bottom: 2rpx;
+}
+
+.course-teacher {
+  font-size: 24rpx;
+  color: #8E82A5;
+}
+
+.course-detail {
+  background: #F8F7FF;
+  border-radius: 14rpx;
+  padding: 16rpx 20rpx;
+}
+
+.course-detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #2D223C;
+  margin-bottom: 8rpx;
+  gap: 10rpx;
+}
+
+.course-detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-icon {
+  font-size: 24rpx;
+  width: 32rpx;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 48rpx 0;
+  font-size: 28rpx;
+  color: #B8B0CC;
+}
+
+/* 签到卡片 */
+.checkin-card {
+  padding: 28rpx;
+}
+
+/* 区块 */
+.section-block {
+  margin-bottom: 28rpx;
+}
+
+.section-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #2D223C;
+  margin-bottom: 16rpx;
+}
+
+/* 定位 */
+.location-display {
+  margin-bottom: 12rpx;
+}
+
+.location-placeholder {
+  width: 100%;
+  height: 120rpx;
+  background: #F5F3FA;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx dashed #D5D0E8;
+}
+
+.location-placeholder:active {
+  background: #EDE7F6;
+}
+
+.loc-icon {
+  font-size: 56rpx;
+}
+
+.location-result {
+  text-align: center;
+}
+
+.loc-result-text {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.loc-result-text.success {
+  color: #3BAD85;
+}
+
+.detail-hint {
+  display: block;
+  font-size: 24rpx;
+  color: #B8B0CC;
+  margin-top: 12rpx;
+  text-align: center;
+}
+
+.detail-addr {
+  display: block;
+  font-size: 24rpx;
+  color: #2D223C;
+  margin-top: 8rpx;
+  padding: 8rpx 16rpx;
+  background: #F5F3FA;
+  border-radius: 12rpx;
+  word-break: break-all;
+}
+
+/* 人脸 */
+.face-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx;
+  background: #FFEEF0;
+  border: 2rpx dashed #FFB8B8;
+  border-radius: 16rpx;
+}
+
+.face-action:active {
+  opacity: 0.7;
+}
+
+.face-camera-icon text {
+  font-size: 48rpx;
+}
+
+.face-action-text {
+  font-size: 26rpx;
+  color: #FF5A6A;
+  margin-top: 8rpx;
+  font-weight: 600;
+}
+
+.face-verifying {
+  text-align: center;
+  padding: 24rpx;
+}
+
+.face-verify-msg {
+  font-size: 26rpx;
+  color: #6C5CE7;
+}
+
+.face-photo-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.face-photo-thumb {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 14rpx;
+  border: 2rpx solid #EDE7F6;
+}
+
+.face-result {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.face-result-text {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.face-result.pass .face-result-text {
+  color: #3BAD85;
+}
+
+.face-result.fail .face-result-text {
+  color: #FF5A6A;
+}
+
+.face-retake {
+  font-size: 22rpx;
+  color: #6C5CE7;
+  margin-top: 4rpx;
+  font-weight: 500;
+}
+
+/* 动态码输入 */
+.dynamic-code-input {
+  width: 100%;
+  height: 80rpx;
+  background: #F5F3FA;
+  border-radius: 14rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #2D223C;
+  transition: all 0.2s;
+}
+
+.dynamic-code-input:focus {
+  background: #fff;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+  border: 2rpx solid #6C5CE7;
+  padding: 0 22rpx;
+}
+
+.dynamic-code-input::placeholder {
+  font-size: 24rpx;
+  color: #B8B0CC;
+}
+
+/* 历史记录 */
+.history-card {
+  padding: 28rpx;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.history-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #2D223C;
+}
+
+.history-more {
+  font-size: 24rpx;
+  color: #6C5CE7;
+  font-weight: 500;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18rpx 0;
+  border-bottom: 2rpx solid #F3EFF9;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-course {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #2D223C;
+  margin-bottom: 2rpx;
+}
+
+.history-date {
+  font-size: 22rpx;
+  color: #8E82A5;
+}
+
+/* 教师端卡片 */
+.teacher-panel-card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.teacher-panel-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #F3E8FF, #E8D5FF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.teacher-panel-info {
+  flex: 1;
+}
+
+.teacher-panel-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2D223C;
+}
+
+.teacher-panel-desc {
+  font-size: 24rpx;
+  color: #8E82A5;
+  margin-top: 4rpx;
+}
+
+.teacher-panel-arrow {
+  font-size: 36rpx;
+  color: #B8B0CC;
+}
+
+.feature-hover {
+  opacity: 0.85;
+}
+
+/* 提示卡片 */
+.hint-card {
+  padding: 28rpx;
+  background: linear-gradient(135deg, #FFF8F0, #FFF5E6);
+  border: 2rpx solid rgba(253, 203, 110, 0.2);
+  margin-top: 10rpx;
+}
+
+.hint-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #2D223C;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.hint-text {
+  display: block;
+  font-size: 24rpx;
+  color: #8E82A5;
+  line-height: 1.8;
+}
+
+/* ====== 状态徽章（同查寝） ====== */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 22rpx;
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+}
+.badge-success { background: #E8FAF3; color: #3BAD85; }
+.badge-idle { background: #F3F0F9; color: #8E82A5; }
+.badge-dot { width: 10rpx; height: 10rpx; border-radius: 50%; }
+.dot-success { background: #3BAD85; }
+.dot-idle { background: #B8B0CC; }
+
+/* ====== 定位区（同查寝） ====== */
+.location-map-area { margin-bottom: 16rpx; }
+.map-bg {
+  width: 100%; height: 160rpx;
+  background: #F5F3FA; border-radius: 16rpx;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.map-bg:active { transform: scale(0.98); }
+.map-bg.map-located { background: #F0EEFF; }
+.map-icon { font-size: 56rpx; }
+
+/* ====== 人脸验证区（同查寝） ====== */
+.face-area {
+  width: 100%; height: 200rpx;
+  background: #F5F3FA; border: 2rpx dashed #D5D0E8;
+  border-radius: 16rpx;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.face-area:active { opacity: 0.7; }
+.face-area.face-verified {
+  border-color: #55C9A6; background: #E8FAF3;
+}
+.face-icon { font-size: 56rpx; margin-bottom: 8rpx; }
+.face-tip { font-size: 24rpx; color: #8E82A5; }
+.face-status-area {
+  display: flex; flex-direction: column;
+  align-items: center; padding: 36rpx 0;
+}
+.face-loading-ring {
+  width: 48rpx; height: 48rpx;
+  border: 4rpx solid #EDE7F6;
+  border-top-color: #6C5CE7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12rpx;
+}
+.face-photo-wrap {
+  width: 100%; height: 300rpx;
+  border-radius: 16rpx; overflow: hidden;
+  margin-top: 12rpx;
+}
+.face-photo { width: 100%; height: 100%; }
+/* ====== 卡片头部行 ====== */
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.card-section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+}
+
+/* ====== 定位详情 ====== */
+.location-body {
+  margin-top: 4rpx;
+}
+.location-map-area {
+  margin-bottom: 16rpx;
+}
+.location-detail {
+  margin-top: 4rpx;
+}
+.detail-hint {
+  display: block;
+  font-size: 24rpx;
+  color: #B8B0CC;
+  text-align: center;
+  margin-top: 12rpx;
+}
+.detail-addr {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #2D223C;
+  padding: 8rpx 20rpx;
+  background: #F5F3FA;
+  border-radius: 12rpx;
+  word-break: break-all;
+}
+/* 课程空状态标签 */
+.course-empty-tag {
+  display: block;
+  text-align: center;
+  margin-top: 8rpx;
+  font-size: 26rpx;
+}
+.course-empty-tag.danger { color: #FF5A6A; font-weight: 600; }
+.course-empty-tag.primary { color: #6C5CE7; }
+
+/* 统计数字颜色 */
+.summary-num { color: #6C5CE7; }
+.summary-num.green { color: #3BAD85; }
+.summary-num.amber { color: #E89B3C; }
+.summary-num.red { color: #FF5A6A; }
+.summary-num.gray { color: #B8B0CC; }
+.stats-bar-num { color: #6C5CE7; }

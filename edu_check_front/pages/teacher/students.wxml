@@ -1,0 +1,52 @@
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-wrap">
+    <text class="search-icon">🔍</text>
+    <input class="search-input" placeholder="搜索学生姓名或学号..." bindinput="onSearch" />
+  </view>
+
+  <!-- 工具栏 -->
+  <view class="toolbar">
+    <view class="toolbar-left">
+      <text wx:if="{{filterLabel}}" class="filter-tag" bindtap="clearFilter">{{filterLabel}} ✕</text>
+      <text class="toolbar-count">共 {{students.length}} 名学生</text>
+    </view>
+    <text class="toolbar-refresh" bindtap="refresh">🔄 刷新</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <view class="loading-ring"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!loading && students.length === 0}}" class="empty-state">
+    <text>📭</text>
+    <text>暂无学生数据</text>
+  </view>
+
+  <!-- 学生列表 -->
+  <view class="student-list">
+    <view class="student-item" wx:for="{{students}}" wx:key="id" bindtap="viewStudent" data-id="{{item.id}}" hover-class="item-hover">
+      <view class="student-avatar-wrap">
+        <image src="/images/default_avatar.png" mode="aspectFill" class="student-avatar"></image>
+      </view>
+      <view class="student-detail">
+        <view class="student-name-row">
+          <text class="student-name">{{item.name}}</text>
+          <text class="student-id">{{item.studentId}}</text>
+        </view>
+        <text class="student-class">{{item.college}} · {{item.major}} · {{item.grade}}</text>
+        <view class="student-tags">
+          <text class="tag {{item.todayCheckin === 'present' ? 'tag-success' : (item.todayCheckin === 'late' ? 'tag-warning' : 'tag-default')}}">
+            上课: {{item.todayCheckin === 'present' ? '已签到' : (item.todayCheckin === 'late' ? '迟到' : '未签到')}}
+          </text>
+          <text class="tag {{item.todayDorm === 'normal' ? 'tag-success' : (item.todayDorm === 'late' ? 'tag-warning' : 'tag-default')}}">
+            查寝: {{item.todayDorm === 'normal' ? '已打卡' : (item.todayDorm === 'late' ? '晚归' : '未打卡')}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

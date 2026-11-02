@@ -1,0 +1,75 @@
+/* =============================================
+  晨光校园 · 学生详情页样式 v2.0
+  ============================================= */
+
+.page-container { padding: 32rpx; }
+
+/* 学生头部 */
+.student-header {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 36rpx;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+.student-header-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3rpx solid #EDE7F6;
+  flex-shrink: 0;
+}
+
+.student-header-avatar image { width: 100%; height: 100%; }
+
+.student-header-info { flex: 1; }
+.student-header-name { font-size: 34rpx; font-weight: 700; color: #2D223C; margin-bottom: 4rpx; }
+.student-header-id { font-size: 24rpx; color: #8E82A5; margin-bottom: 2rpx; }
+.student-header-class { font-size: 22rpx; color: #B8B0CC; }
+
+/* 统计卡片 */
+.detail-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.detail-stat-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+.detail-stat-num { font-size: 40rpx; font-weight: 800; color: #6C5CE7; display: block; margin-bottom: 4rpx; font-variant-numeric: tabular-nums; }
+.detail-stat-label { font-size: 22rpx; color: #8E82A5; }
+
+/* 近期记录 */
+.recent-section { margin-bottom: 24rpx; }
+.recent-title { font-size: 28rpx; font-weight: 700; color: #2D223C; margin-bottom: 16rpx; }
+
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18rpx 0;
+  border-bottom: 2rpx solid #F3EFF9;
+}
+
+.record-item:last-child { border-bottom: none; }
+
+.record-date { font-size: 24rpx; color: #2D223C; }
+.record-detail { font-size: 22rpx; color: #8E82A5; }
+
+/* 卡片通用 */
+.card { background:#fff; border-radius:20rpx; padding:28rpx; margin-bottom:24rpx; box-shadow:0 4rpx 16rpx rgba(108,92,231,0.08); }
+.card-title-row { margin-bottom:16rpx; }
+.card-title { font-size:28rpx; font-weight:700; color:#2D223C; }
+.card-empty { text-align:center; padding:32rpx 0; font-size:24rpx; color:#B8B0CC; }

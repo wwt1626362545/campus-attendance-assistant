@@ -1,0 +1,73 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">🔧 宿舍报修</text>
+    <text class="page-subtitle">在线报修，快速响应</text>
+  </view>
+
+  <!-- 提交表单 -->
+  <view class="card form-card" wx:if="{{!isTeacher}}">
+    <view class="form-group">
+      <text class="form-label">宿舍楼</text>
+      <input class="input-field" placeholder="如：学苑3号楼" value="{{form.dormBuilding}}" bindinput="onBuildingInput" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">宿舍号</text>
+      <input class="input-field" placeholder="如：A-512" value="{{form.dormRoom}}" bindinput="onRoomInput" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">联系电话</text>
+      <input class="input-field" placeholder="手机号（选填）" value="{{form.phone}}" bindinput="onPhoneInput" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">报修类型</text>
+      <picker mode="selector" range="{{categoryOptions}}" range-key="name" bindchange="onCategoryChange">
+        <view class="picker-display">{{currentCategoryName}}</view>
+      </picker>
+    </view>
+    <view class="form-group">
+      <text class="form-label">问题描述</text>
+      <textarea class="form-textarea" placeholder="请详细描述故障情况..." value="{{form.description}}" bindinput="onDescInput" maxlength="500" />
+    </view>
+    <button class="btn-primary" bindtap="submit" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交报修'}}</button>
+  </view>
+
+  <!-- 快捷筛选 -->
+  <view class="filter-bar" wx:if="{{isTeacher}}">
+    <view class="filter-tag {{tabType === 'my' ? 'active' : ''}}" bindtap="switchTab" data-tab="my">待处理</view>
+    <view class="filter-tag {{tabType === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="section-header">
+    <view class="section-title-line"></view>
+    <text class="section-title-text">{{tabType === 'my' ? '报修记录' : '全部报修'}}</text>
+    <view class="section-title-line"></view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-tip">加载中...</view>
+  <view wx:if="{{!loading && list.length === 0}}" class="empty-tip">暂无报修记录</view>
+
+  <view class="repair-list" wx:if="{{!loading && list.length > 0}}">
+    <view class="repair-item" wx:for="{{list}}" wx:key="id">
+      <view class="repair-header">
+        <text class="repair-cat">{{item.catName || item.category}}</text>
+        <text class="repair-status {{item.status}}">{{item.status === 'pending' ? '待处理' : '已处理'}}</text>
+      </view>
+      <view class="repair-student" wx:if="{{isTeacher}}">
+        <text>{{item.studentName || '未知'}} · {{item.studentId || ''}}</text>
+      </view>
+      <text class="repair-dorm">{{item.dormBuilding}} {{item.dormRoom}}</text>
+      <text class="repair-desc">{{item.description}}</text>
+      <view class="repair-footer">
+        <text class="repair-time">{{formatTime(item.createdAt)}}</text>
+        <text class="repair-phone" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+      </view>
+      <view class="repair-reply" wx:if="{{item.reply}}">💬 回复：{{item.reply}}</view>
+      <!-- 教师操作 -->
+      <view class="repair-actions" wx:if="{{isTeacher && item.status === 'pending'}}">
+        <input class="reply-input" placeholder="输入处理回复（选填）" bindinput="onReplyInput" data-id="{{item.id}}" />
+        <view class="repair-btn" bindtap="handleRepair" data-id="{{item.id}}">✅ 处理完成</view>
+      </view>
+    </view>
+  </view>
+</view>

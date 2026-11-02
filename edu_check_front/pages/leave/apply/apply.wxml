@@ -1,0 +1,80 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">✏️ 提交请假申请</text>
+    <text class="page-subtitle">请如实填写请假信息</text>
+  </view>
+
+  <view class="form-card">
+    <view class="form-group">
+      <text class="form-label">请假类型</text>
+      <view class="picker-wrap">
+        <picker value="{{typeIndex}}" range="{{typeOptions}}" range-key="{{['name']}}" bindchange="onTypeChange">
+          <view class="picker-value {{currentTypeName === '请选择' ? 'placeholder' : ''}}">
+            <text class="picker-label" wx:if="{{currentTypeName !== '请选择'}}">📋</text>
+            {{currentTypeName}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-group form-half">
+        <text class="form-label">开始日期</text>
+        <picker mode="date" value="{{form.startDate}}" start="{{minDate}}" bindchange="onStartDateChange">
+          <view class="picker-wrap">
+            <view class="picker-value">
+              <text class="picker-label">📅</text>
+              {{form.startDate}}
+            </view>
+          </view>
+        </picker>
+      </view>
+      <view class="form-group form-half">
+        <text class="form-label">开始时间</text>
+        <picker mode="time" value="{{form.startTime}}" bindchange="onStartTimeChange">
+          <view class="picker-wrap">
+            <view class="picker-value">
+              <text class="picker-label">🕐</text>
+              {{form.startTime || '08:00'}}
+            </view>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-group form-half">
+        <text class="form-label">结束日期</text>
+        <picker mode="date" value="{{form.endDate}}" start="{{form.startDate}}" bindchange="onEndDateChange">
+          <view class="picker-wrap">
+            <view class="picker-value">
+              <text class="picker-label">📅</text>
+              {{form.endDate}}
+            </view>
+          </view>
+        </picker>
+      </view>
+      <view class="form-group form-half">
+        <text class="form-label">结束时间</text>
+        <picker mode="time" value="{{form.endTime}}" bindchange="onEndTimeChange">
+          <view class="picker-wrap">
+            <view class="picker-value">
+              <text class="picker-label">🕐</text>
+              {{form.endTime || '18:00'}}
+            </view>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">请假事由</text>
+      <textarea class="form-textarea" placeholder="请详细说明请假原因..." value="{{form.reason}}" bindinput="onReasonInput" maxlength="500" />
+      <text class="form-counter">{{form.reason.length || 0}}/500</text>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="submit" disabled="{{submitting}}">
+    {{submitting ? '⏳ 提交中...' : '✓ 提交申请'}}
+  </button>
+</view>

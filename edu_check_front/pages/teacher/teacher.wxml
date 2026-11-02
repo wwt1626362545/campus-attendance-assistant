@@ -1,0 +1,76 @@
+<view class="page-container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">📊 今日打卡概览</text>
+    <text class="page-subtitle">教师工作台</text>
+  </view>
+
+  <!-- 统计网格 -->
+  <view class="teacher-stats">
+    <view class="stat-block" bindtap="goStudents" data-filter="" hover-class="stat-block-hover">
+      <text class="stat-block-num">{{summary.totalStudents}}</text>
+      <text class="stat-block-label">👥 总学生数</text>
+    </view>
+    <view class="stat-block stat-green" bindtap="goStudents" data-filter="class_checked" hover-class="stat-block-hover">
+      <text class="stat-block-num">{{summary.classChecked}}</text>
+      <text class="stat-block-label">📖 已上课签到</text>
+    </view>
+    <view class="stat-block stat-red" bindtap="goStudents" data-filter="class_not" hover-class="stat-block-hover">
+      <text class="stat-block-num">{{summary.classNotChecked}}</text>
+      <text class="stat-block-label">📖 未上课签到</text>
+    </view>
+    <view class="stat-block stat-green" bindtap="goStudents" data-filter="dorm_checked" hover-class="stat-block-hover">
+      <text class="stat-block-num">{{summary.dormChecked}}</text>
+      <text class="stat-block-label">🏠 已查寝打卡</text>
+    </view>
+    <view class="stat-block stat-red" bindtap="goStudents" data-filter="dorm_not" hover-class="stat-block-hover">
+      <text class="stat-block-num">{{summary.dormNotChecked}}</text>
+      <text class="stat-block-label">🏠 未查寝打卡</text>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="section-header" style="margin-top: 30rpx;">
+    <view class="section-title-line"></view>
+    <text class="section-title-text">⚡ 快捷操作</text>
+    <view class="section-title-line"></view>
+  </view>
+
+  <view class="feature-grid">
+    <view class="feature-card" bindtap="goStudents" hover-class="feature-active">
+      <view class="feature-bg feature-teacher-students">
+        <view class="feature-icon-box">
+          <text class="feature-emoji">👥</text>
+        </view>
+        <view class="feature-info">
+          <text class="feature-name">学生管理</text>
+          <text class="feature-desc">查看所有学生签到状态</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="feature-card" bindtap="goLeaveApprove" hover-class="feature-active">
+      <view class="feature-bg feature-teacher-leave">
+        <view class="feature-icon-box">
+          <text class="feature-emoji">📋</text>
+        </view>
+        <view class="feature-info">
+          <text class="feature-name">请假审批</text>
+          <text class="feature-desc">处理待审批的请假申请</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="feature-card" bindtap="goAnnouncePublish" hover-class="feature-active">
+      <view class="feature-bg feature-teacher-code">
+        <view class="feature-icon-box">
+          <text class="feature-emoji">📢</text>
+        </view>
+        <view class="feature-info">
+          <text class="feature-name">公告管理</text>
+          <text class="feature-desc">发布与管理校园公告</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,93 @@
+<view class="page-container">
+  <view wx:if="{{loading}}" class="loading-tip" style="text-align:center;padding:80rpx 0;color:#B8B0CC;font-size:26rpx;">加载中...</view>
+  <block wx:else>
+  <!-- 学生信息头部 -->
+  <view class="student-header">
+    <view class="student-header-avatar">
+      <image src="/images/default_avatar.png" mode="aspectFill"></image>
+    </view>
+    <view class="student-header-info">
+      <text class="student-header-name">{{student.name}}</text>
+      <text class="student-header-id">{{student.studentId}}</text>
+      <text class="student-header-class">{{student.college}} · {{student.major}} · {{student.grade}}</text>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="detail-stats">
+    <view class="detail-stat-item">
+      <text class="detail-stat-num">{{stats.classTotal || 0}}</text>
+      <text class="detail-stat-label">📖 上课总次数</text>
+    </view>
+    <view class="detail-stat-item">
+      <text class="detail-stat-num">{{stats.dormTotal || 0}}</text>
+      <text class="detail-stat-label">🏠 查寝总次数</text>
+    </view>
+    <view class="detail-stat-item">
+      <text class="detail-stat-num">{{stats.internTotal || 0}}</text>
+      <text class="detail-stat-label">💼 实习总次数</text>
+    </view>
+    <view class="detail-stat-item">
+      <text class="detail-stat-num">🔥 {{stats.streakDays || 0}}</text>
+      <text class="detail-stat-label">连续打卡</text>
+    </view>
+  </view>
+
+  <!-- 今日课程签到 -->
+  <view class="card">
+    <view class="card-title-row">
+      <text class="card-title">📖 今日课程签到</text>
+    </view>
+    <view wx:if="{{todayClasses.length === 0}}" class="card-empty">今日无课程签到记录</view>
+    <view class="recent-list" wx:if="{{todayClasses.length > 0}}">
+      <view class="record-item" wx:for="{{todayClasses}}" wx:key="id">
+        <view>
+          <text class="record-date">{{item.date}}</text>
+          <text class="record-detail" style="display:block;margin-top:4rpx;">{{item.checkinTime || '未签到'}}</text>
+        </view>
+        <text class="tag {{item.status === 'present' ? 'tag-success' : (item.status === 'late' ? 'tag-warning' : 'tag-danger')}}">
+          {{item.status === 'present' ? '✓ 已签到' : (item.status === 'late' ? '⏰ 迟到' : '✕ 缺勤')}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近期上课记录 -->
+  <view class="card">
+    <view class="card-title-row">
+      <text class="card-title">📖 近期上课记录</text>
+    </view>
+    <view wx:if="{{recentClassRecords.length === 0}}" class="card-empty">暂无上课记录</view>
+    <view class="recent-list" wx:if="{{recentClassRecords.length > 0}}">
+      <view class="record-item" wx:for="{{recentClassRecords}}" wx:key="id">
+        <view>
+          <text class="record-date">{{item.date}} · {{item.courseName || '未知课程'}}</text>
+          <text class="record-detail" style="display:block;margin-top:4rpx;">{{item.checkinTime || '未签到'}}</text>
+        </view>
+        <text class="tag {{item.status === 'present' ? 'tag-success' : (item.status === 'late' ? 'tag-warning' : 'tag-danger')}}">
+          {{item.status === 'present' ? '✓ 已签到' : (item.status === 'late' ? '⏰ 迟到' : '✕ 缺勤')}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近期查寝记录 -->
+  <view class="card">
+    <view class="card-title-row">
+      <text class="card-title">🏠 近期查寝记录</text>
+    </view>
+    <view wx:if="{{recentDormRecords.length === 0}}" class="card-empty">暂无查寝记录</view>
+    <view class="recent-list" wx:if="{{recentDormRecords.length > 0}}">
+      <view class="record-item" wx:for="{{recentDormRecords}}" wx:key="id">
+        <view>
+          <text class="record-date">{{item.date}}</text>
+          <text class="record-detail" style="display:block;margin-top:4rpx;">{{item.checkinTime || '未打卡'}}</text>
+        </view>
+        <text class="tag {{item.status === 'normal' ? 'tag-success' : (item.status === 'late' ? 'tag-warning' : 'tag-danger')}}">
+          {{item.status === 'normal' ? '正常' : (item.status === 'late' ? '晚归' : '未打卡')}}
+        </text>
+      </view>
+    </view>
+  </view>
+  </block>
+</view>

@@ -1,0 +1,83 @@
+/* =============================================
+  晨光校园 · 公告详情页样式 v2.0
+  ============================================= */
+
+.page-container { padding: 32rpx; }
+
+.announce-detail-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 36rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+/* 头部标签 */
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.detail-type-tag {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+}
+
+.detail-type-tag.notice { background: #F0EEFF; }
+.detail-type-tag.activity { background: #FFF5E6; }
+.detail-type-tag.academic { background: #E8FAF3; }
+.detail-type-tag.policy { background: #FFEEF0; }
+
+.detail-type-name {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+.detail-type-name.notice { color: #6C5CE7; }
+.detail-type-name.activity { color: #E89B3C; }
+.detail-type-name.academic { color: #3BAD85; }
+.detail-type-name.policy { color: #FF5A6A; }
+
+.detail-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2D223C;
+  line-height: 1.4;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 24rpx;
+  font-size: 22rpx;
+  color: #B8B0CC;
+  margin-bottom: 8rpx;
+}
+
+.detail-content {
+  font-size: 28rpx;
+  color: #2D223C;
+  line-height: 1.9;
+  letter-spacing: 1rpx;
+}
+
+.detail-content text {
+  display: block;
+}
+
+.detail-footer {
+  margin-top: 28rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #F3EFF9;
+}
+
+.detail-source {
+  font-size: 22rpx;
+  color: #B8B0CC;
+}

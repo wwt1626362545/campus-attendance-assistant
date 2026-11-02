@@ -1,0 +1,95 @@
+﻿<view class="page-container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">🏠 查寝打卡</text>
+    <text class="page-subtitle">定位 + 人脸识别签到</text>
+  </view>
+
+  <!-- 当前时间卡片 -->
+  <view class="card time-card">
+    <view class="time-left">
+      <text class="time-label">当前时间</text>
+      <text class="time-value">{{currentTime}}</text>
+    </view>
+    <view class="time-right">
+      <text class="time-date">{{currentDate}}</text>
+      <text class="time-weekday">{{currentWeekday}}</text>
+    </view>
+  </view>
+
+  <!-- 定位信息 -->
+  <view class="card location-card">
+    <view class="card-header-row">
+      <text class="card-section-title">📍 定位信息</text>
+      <view class="status-badge {{locationChecked ? 'badge-success' : 'badge-idle'}}">
+        <view class="badge-dot {{locationChecked ? 'dot-success' : 'dot-idle'}}"></view>
+        <text>{{locationChecked ? '已定位' : '未定位'}}</text>
+      </view>
+    </view>
+    <view class="location-body">
+      <view class="location-map-area" bindtap="getLocation">
+        <view class="map-bg {{locationChecked ? 'map-located' : ''}}">
+          <text class="map-icon">{{locationChecked ? '📍' : '🗺️'}}</text>
+        </view>
+      </view>
+      <view class="location-detail">
+        <text class="detail-hint" wx:if="{{!locationChecked}}">点击上方区域进行定位</text>
+        <text class="detail-addr" wx:else>{{locationAddr}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 人脸验证 -->
+  <view class="card face-card">
+    <view class="card-header-row">
+      <text class="card-section-title">👤 人脸验证</text>
+      <view class="status-badge {{faceVerified ? 'badge-success' : 'badge-idle'}}">
+        <view class="badge-dot {{faceVerified ? 'dot-success' : 'dot-idle'}}"></view>
+        <text>{{faceVerified ? '已通过' : '未验证'}}</text>
+      </view>
+    </view>
+
+    <view class="face-area {{faceVerified ? 'face-verified' : ''}}" wx:if="{{!faceVerifying}}" bindtap="startFaceCheck">
+      <text class="face-icon">{{faceVerified ? '✅' : '📷'}}</text>
+      <text class="face-tip">{{faceVerified ? '验证通过，点击重拍' : '点击拍照验证'}}</text>
+    </view>
+
+    <view class="face-status-area" wx:if="{{faceVerifying}}">
+      <view class="face-loading-ring"></view>
+      <text class="face-verify-msg">⏳ 人脸验证中...</text>
+    </view>
+
+    <view class="face-error" wx:if="{{facePhotoUrl && !faceVerified && !faceVerifying}}">
+      <text class="face-error-text">{{faceVerifyMsg}}</text>
+      <text class="face-retake" bindtap="startFaceCheck">重新验证</text>
+    </view>
+
+    <view class="face-photo-wrap" wx:if="{{faceVerified && facePhotoUrl}}">
+      <image src="{{facePhotoUrl}}" mode="aspectFill" class="face-photo"></image>
+    </view>
+  </view>
+
+  <!-- 打卡按钮 -->
+  <button class="btn-primary btn-pulse {{!canCheckin ? 'btn-disabled' : ''}}"
+          bindtap="doDormCheckin"
+          loading="{{submitting}}">
+    {{submitting ? '⏳  提交中...' : (checkedIn ? '🔄  更新打卡' : '✓  确认打卡')}}
+  </button>
+
+  <!-- 打卡记录 -->
+  <view class="card history-card">
+    <view class="card-header-row">
+      <text class="card-section-title">📋 近期打卡记录</text>
+      <text class="history-more" bindtap="viewAllHistory">查看全部 ›</text>
+    </view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{history}}" wx:key="index">
+        <view class="history-left">
+          <text class="history-date">{{item.date}}</text>
+        </view>
+        <text class="history-time">{{item.checkinTime ? item.checkinTime.split(' ')[1] : '-'}}</text>
+        <text class="tag {{item.status === 'normal' ? 'tag-success' : 'tag-warning'}}">{{item.status === 'normal' ? '正常' : '晚归'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

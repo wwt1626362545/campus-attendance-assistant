@@ -1,0 +1,51 @@
+/* =============================================
+  晨光校园 · 未命中问题页面样式 v2.0
+  ============================================= */
+
+.page-header { margin-bottom: 24rpx; }
+.page-subtitle { font-size: 24rpx; color: #8E82A5; margin-bottom: 24rpx; }
+
+.question-list { display: flex; flex-direction: column; gap: 20rpx; }
+
+.question-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: all 0.2s;
+}
+
+.question-hover { transform: scale(0.98); }
+
+.question-text {
+  font-size: 28rpx;
+  color: #2D223C;
+  font-weight: 500;
+  margin-bottom: 12rpx;
+  line-height: 1.5;
+}
+
+.question-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22rpx;
+  color: #B8B0CC;
+  margin-bottom: 12rpx;
+}
+.question-cat { color:#8E82A5; }
+
+/* 按钮 */
+.btn-outline { padding:14rpx 28rpx; border:2rpx solid #6C5CE7; border-radius:28rpx; font-size:24rpx; color:#6C5CE7; font-weight:600; }
+.btn-outline:active { background:#F0EEFF; }
+.btn-primary-sm { padding:14rpx 28rpx; background:#6C5CE7; border-radius:28rpx; font-size:24rpx; color:#fff; font-weight:600; }
+.btn-primary-sm:active { opacity:0.8; }
+.btn-primary-sm[disabled] { opacity:0.5; }
+
+/* 答案输入 */
+.answer-area { border-top:2rpx solid #F3EFF9; padding-top:14rpx; }
+.answer-input {
+  width:100%; height:100rpx; background:#F8F7FF; border-radius:12rpx;
+  padding:14rpx 18rpx; font-size:24rpx; color:#2D223C; line-height:1.5;
+  box-sizing:border-box;
+}
+.answer-input::placeholder { color:#C8C0D8; font-size:22rpx; }

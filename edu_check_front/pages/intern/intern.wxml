@@ -1,0 +1,113 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">💼 实习打卡</text>
+    <text class="page-subtitle">定位签到 · 日志上报</text>
+  </view>
+
+  <!-- 实习信息 -->
+  <view class="card intern-card">
+    <view class="card-header-row">
+      <text class="card-section-title">🏢 实习信息</text>
+      <view class="status-badge {{checkedIn ? 'badge-success' : 'badge-idle'}}">
+        <view class="badge-dot {{checkedIn ? 'dot-success' : 'dot-idle'}}"></view>
+        <text>{{checkedIn ? '已签到' : '未签到'}}</text>
+      </view>
+    </view>
+    <view class="intern-detail">
+      <view class="intern-detail-row">
+        <text class="intern-label">单位名称</text>
+        <text class="intern-value">{{internInfo.company || '未设置'}}</text>
+      </view>
+      <view class="intern-detail-row">
+        <text class="intern-label">岗位</text>
+        <text class="intern-value">{{internInfo.position || '未设置'}}</text>
+      </view>
+      <view class="intern-detail-row">
+        <text class="intern-label">地址</text>
+        <text class="intern-value">{{internInfo.address || '未设置'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 当前位置 -->
+  <view class="card location-card">
+    <view class="card-header-row">
+      <text class="card-section-title">📍 当前位置</text>
+      <view class="status-badge {{locationChecked ? 'badge-success' : 'badge-idle'}}">
+        <view class="badge-dot {{locationChecked ? 'dot-success' : 'dot-idle'}}"></view>
+        <text>{{locationChecked ? '已定位' : '未定位'}}</text>
+      </view>
+    </view>
+    <view class="location-map-area" bindtap="getLocation">
+      <view class="map-bg {{locationChecked ? 'map-located' : ''}}">
+        <text class="map-icon">{{locationChecked ? '📍' : '🗺️'}}</text>
+      </view>
+    </view>
+    <text class="detail-hint" wx:if="{{!locationChecked}}">点击上方进行定位</text>
+    <text class="detail-addr" wx:elif="{{locationAddr}}">{{locationAddr}}</text>
+  </view>
+
+  <!-- 日志上报 -->
+  <view class="card log-card">
+    <view class="card-header-row">
+      <text class="card-section-title">📝 实习日志</text>
+    </view>
+    <textarea class="log-textarea" placeholder="请简要描述今日实习内容..." value="{{dailyLog}}" bindinput="onLogInput" maxlength="500"></textarea>
+    <text class="form-counter">{{dailyLog.length || 0}}/500</text>
+  </view>
+
+  <!-- 人脸验证 -->
+  <view class="card face-card">
+    <view class="card-header-row">
+      <text class="card-section-title">👤 人脸验证</text>
+      <view class="status-badge {{faceVerified ? 'badge-success' : 'badge-idle'}}">
+        <view class="badge-dot {{faceVerified ? 'dot-success' : 'dot-idle'}}"></view>
+        <text>{{faceVerified ? '已通过' : '未验证'}}</text>
+      </view>
+    </view>
+
+    <view class="face-area {{faceVerified ? 'face-verified' : ''}}" wx:if="{{!faceVerifying}}" bindtap="startFaceCheck">
+      <text class="face-icon">{{faceVerified ? '✅' : '📷'}}</text>
+      <text class="face-tip">{{faceVerified ? '验证通过，点击重拍' : '点击拍照验证'}}</text>
+    </view>
+
+    <view class="face-status-area" wx:if="{{faceVerifying}}">
+      <view class="face-loading-ring"></view>
+      <text class="face-verify-msg">⏳ 人脸验证中...</text>
+    </view>
+
+    <view class="face-error" wx:if="{{facePhotoUrl && !faceVerified && !faceVerifying}}">
+      <text class="face-error-text">{{faceVerifyMsg}}</text>
+      <text class="face-retake" bindtap="startFaceCheck">重新验证</text>
+    </view>
+
+    <view class="face-photo-wrap" wx:if="{{faceVerified && facePhotoUrl}}">
+      <image src="{{facePhotoUrl}}" mode="aspectFill" class="face-photo"></image>
+    </view>
+  </view>
+
+  <!-- 打卡按钮 -->
+  <button class="btn-primary {{!canCheckin ? 'btn-disabled' : ''}}"
+          disabled="{{!canCheckin}}"
+          bindtap="doInternCheckin"
+          loading="{{submitting}}">
+    {{submitting ? '⏳ 提交中...' : (checkedIn ? '🔄 更新打卡' : '✓ 确认打卡')}}
+  </button>
+
+  <!-- 打卡记录 -->
+  <view class="card history-card">
+    <view class="card-header-row">
+      <text class="card-section-title">📋 近期打卡记录</text>
+      <text class="history-more" bindtap="viewAllHistory">查看全部 ›</text>
+    </view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{history}}" wx:key="index">
+        <view class="history-left">
+          <text class="history-date">{{item.date}}</text>
+        </view>
+        <text class="history-time">{{item.checkinTime ? item.checkinTime.split(' ')[1] : '-'}}</text>
+        <text class="tag {{item.status === 'normal' ? 'tag-success' : (item.status === 'late' ? 'tag-warning' : 'tag-danger')}}">{{item.status === 'normal' ? '正常' : (item.status === 'late' ? '迟到' : '缺勤')}}</text>
+      </view>
+    </view>
+  </view>
+</view>

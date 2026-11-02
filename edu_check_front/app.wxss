@@ -1,0 +1,571 @@
+/* ========================================
+   晨光校园 (Morning Light Campus)
+   全局设计系统 — v2.0
+   ======================================== */
+
+/* ---------- 设计令牌 ---------- */
+Page {
+  --color-primary: #6C5CE7;
+  --color-primary-light: #A29BFE;
+  --color-primary-dark: #5A4BD1;
+  --color-secondary: #FF7675;
+  --color-secondary-light: #FFB8B8;
+  --color-gold: #FDCB6E;
+  --color-success: #55C9A6;
+  --color-warning: #FFBE76;
+  --color-danger: #FF6B7A;
+  --color-bg: #F8F7FF;
+  --color-surface: #FFFFFF;
+  --color-text: #2D223C;
+  --color-text-secondary: #8E82A5;
+  --color-text-tertiary: #B8B0CC;
+  --color-border: #EDE7F6;
+  --color-border-light: #F3EFF9;
+  --shadow-card: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  --shadow-elevated: 0 8rpx 24rpx rgba(108, 92, 231, 0.12);
+  --shadow-input: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+  --radius-sm: 12rpx;
+  --radius-md: 20rpx;
+  --radius-lg: 28rpx;
+  --radius-full: 50%;
+  --font-h1: 40rpx;
+  --font-h2: 34rpx;
+  --font-h3: 30rpx;
+  --font-body: 28rpx;
+  --font-small: 24rpx;
+  --font-micro: 20rpx;
+
+  background-color: #F8F7FF;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  color: #2D223C;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+/* ---------- 全局重置 ---------- */
+view, text, image, button, input, textarea, scroll-view, swiper, picker, navigator {
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  line-height: inherit;
+}
+
+button::after {
+  border: none;
+}
+
+/* ---------- 主按钮 ---------- */
+.btn-primary {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 92rpx !important;
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE) !important;
+  border-radius: 46rpx !important;
+  color: #fff !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+  letter-spacing: 2rpx !important;
+  box-shadow: 0 6rpx 20rpx rgba(108, 92, 231, 0.3) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+  box-shadow: 0 2rpx 10rpx rgba(108, 92, 231, 0.2) !important;
+}
+
+.btn-primary[disabled] {
+  opacity: 0.5 !important;
+  box-shadow: none !important;
+}
+
+.btn-primary.btn-disabled {
+  background: linear-gradient(135deg, #D5D0E8, #E2DEF0) !important;
+  box-shadow: none !important;
+}
+
+/* ---------- 次按钮 ---------- */
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 92rpx;
+  background: #fff;
+  border: 2rpx solid #6C5CE7;
+  border-radius: 46rpx;
+  color: #6C5CE7;
+  font-size: 32rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:active {
+  background: #F3F0FF;
+  border-color: #5A4BD1;
+}
+
+/* ---------- 卡片 ---------- */
+.card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ---------- 状态标签 ---------- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.tag-success {
+  background: #E8FAF3;
+  color: #3BAD85;
+}
+
+.tag-warning {
+  background: #FFF5E6;
+  color: #E89B3C;
+}
+
+.tag-danger {
+  background: #FFEEF0;
+  color: #FF5A6A;
+}
+
+.tag-primary {
+  background: #F0EEFF;
+  color: #6C5CE7;
+}
+
+.tag-default {
+  background: #F3F0F9;
+  color: #8E82A5;
+}
+
+/* ---------- 页面容器 ---------- */
+.page-container {
+  padding: 32rpx;
+  padding-bottom: 40rpx;
+}
+
+/* ---------- 页面标题 ---------- */
+.page-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2D223C;
+  margin-bottom: 6rpx;
+  letter-spacing: 1rpx;
+}
+
+.page-subtitle {
+  font-size: 24rpx;
+  color: #8E82A5;
+  margin-bottom: 24rpx;
+}
+
+/* ---------- Flex 布局工具 ---------- */
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 分割线 ---------- */
+.divider {
+  height: 2rpx;
+  background: #F3EFF9;
+  margin: 24rpx 0;
+}
+
+/* ---------- 空状态 ---------- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-state text {
+  font-size: 28rpx;
+  color: #B8B0CC;
+  margin-top: 20rpx;
+}
+
+/* ---------- 输入框通用 ---------- */
+.input-field {
+  width: 100%;
+  height: 88rpx;
+  background: #F5F3FA;
+  border: 2rpx solid transparent;
+  border-radius: 16rpx;
+  padding: 0 28rpx;
+  font-size: 28rpx;
+  color: #2D223C;
+  transition: all 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: #6C5CE7;
+  background: #fff;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+}
+
+.input-field::placeholder {
+  color: #B8B0CC;
+  font-size: 26rpx;
+}
+
+/* ---------- 加载动画 ---------- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #F3EFF9 25%, #EDE7F6 50%, #F3EFF9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12rpx;
+}
+
+/* ---------- 小徽章气泡 ---------- */
+.badge-dot {
+  display: inline-block;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #FF6B7A;
+}
+/* ---------- 按钮增强系统 ---------- */
+
+/* 圆角图标按钮 - 紧凑型 */
+.btn-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 72rpx !important;
+  height: 72rpx !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.08) !important;
+  font-size: 32rpx !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  flex-shrink: 0;
+}
+.btn-icon:active {
+  transform: scale(0.88) !important;
+  box-shadow: 0 2rpx 4rpx rgba(108, 92, 231, 0.12) !important;
+}
+
+/* 胶囊小按钮 - 适用于标签式操作 */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 12rpx 28rpx;
+  border-radius: 36rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  background: #F5F3FA;
+  color: #6C5CE7;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+}
+.btn-pill:active {
+  transform: scale(0.94);
+  background: #EDE7F6;
+}
+.btn-pill-primary {
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.2);
+}
+.btn-pill-primary:active {
+  box-shadow: 0 2rpx 6rpx rgba(108, 92, 231, 0.15);
+}
+.btn-pill-success {
+  background: #E8FAF3;
+  color: #3BAD85;
+}
+.btn-pill-danger {
+  background: #FFEEF0;
+  color: #FF5A6A;
+}
+.btn-pill-warning {
+  background: #FFF5E6;
+  color: #E89B3C;
+}
+
+/* 幽灵按钮 - 极简文字操作 */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 8rpx 16rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #8E82A5;
+  border-radius: 12rpx;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+.btn-ghost:active {
+  background: #F5F3FA;
+  color: #6C5CE7;
+}
+.btn-ghost-primary {
+  color: #6C5CE7;
+}
+.btn-ghost-danger {
+  color: #FF5A6A;
+}
+.btn-ghost-danger:active {
+  background: #FFEEF0;
+}
+
+/* 按钮组 */
+.btn-group {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+.btn-group .btn-primary,
+.btn-group .btn-secondary {
+  flex: 1;
+}
+.btn-group .btn-icon {
+  flex: none;
+}
+
+/* 主按钮支持图标前缀 */
+.btn-primary .btn-icon-prefix {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+/* 小型文字按钮 - 活动标签 */
+.action-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  background: #F0EEFF;
+  color: #6C5CE7;
+  transition: all 0.2s ease;
+}
+.action-tag:active {
+  transform: scale(0.92);
+  background: #E8E3FF;
+}
+/* ---------- 创意按钮装饰 ---------- */
+
+/* 主按钮光泽动效 - 模拟光线扫过 */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-25deg);
+  transition: none;
+}
+.btn-primary:active::after {
+  left: 120%;
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 弹簧回弹动效 */
+@keyframes btn-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.94); }
+  70% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+.btn-bounce:active {
+  animation: btn-bounce 0.4s cubic-bezier(0.68, -0.15, 0.27, 1.15) !important;
+}
+
+/* 呼吸脉冲 - 引导注意 */
+@keyframes btn-pulse {
+  0% { box-shadow: 0 6rpx 20rpx rgba(108, 92, 231, 0.3); }
+  50% { box-shadow: 0 6rpx 32rpx rgba(108, 92, 231, 0.5); }
+  100% { box-shadow: 0 6rpx 20rpx rgba(108, 92, 231, 0.3); }
+}
+.btn-pulse {
+  animation: btn-pulse 2s ease-in-out infinite !important;
+}
+
+/* 书签式筛选标签 */
+.filter-bookmark {
+  position: relative;
+  padding: 16rpx 32rpx;
+  font-size: 24rpx;
+  color: #8E82A5;
+  background: transparent;
+  border-bottom: 4rpx solid transparent;
+  transition: all 0.3s ease;
+}
+.filter-bookmark.active {
+  color: #6C5CE7;
+  font-weight: 600;
+  border-bottom-color: #6C5CE7;
+}
+.filter-bookmark.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  border-radius: 4rpx;
+  background: #6C5CE7;
+}
+
+/* 创意双色渐变按钮 */
+.btn-duo {
+  background: linear-gradient(135deg, #FF7675, #FDCB6E) !important;
+  box-shadow: 0 6rpx 20rpx rgba(255, 118, 117, 0.3) !important;
+}
+.btn-duo:active {
+  box-shadow: 0 2rpx 10rpx rgba(255, 118, 117, 0.2) !important;
+}
+
+/* 创意三色渐变按钮 */
+.btn-trio {
+  background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 50%, #B8B0FF 100%) !important;
+}
+
+/* 卡片操作项 - 创意按压效果 */
+.card-action {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.card-action:active {
+  transform: translateY(-4rpx) scale(1.01);
+  box-shadow: 0 12rpx 32rpx rgba(108, 92, 231, 0.15);
+}
+.card-action-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+}
+.card-action-body { flex: 1; }
+.card-action-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+}
+.card-action-desc {
+  font-size: 24rpx;
+  color: #8E82A5;
+  margin-top: 4rpx;
+}
+.card-action-arrow {
+  font-size: 36rpx;
+  color: #B8B0CC;
+  margin-left: 16rpx;
+}
+
+/* 磁吸式切换按钮 */
+.toggle-pill {
+  display: inline-flex;
+  background: #F5F3FA;
+  border-radius: 44rpx;
+  padding: 6rpx;
+  gap: 0;
+}
+.toggle-pill-item {
+  padding: 14rpx 32rpx;
+  border-radius: 38rpx;
+  font-size: 24rpx;
+  color: #8E82A5;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toggle-pill-item.active {
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.25);
+}
+
+/* 创意圆点状态按钮 */
+.dot-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 6rpx 20rpx;
+  font-size: 22rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+.dot-btn::before {
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-btn-success { background: #E8FAF3; color: #3BAD85; }
+.dot-btn-success::before { background: #3BAD85; }
+.dot-btn-warning { background: #FFF5E6; color: #E89B3C; }
+.dot-btn-warning::before { background: #E89B3C; }
+.dot-btn-danger { background: #FFEEF0; color: #FF5A6A; }
+.dot-btn-danger::before { background: #FF5A6A; }
+.dot-btn-primary { background: #F0EEFF; color: #6C5CE7; }
+.dot-btn-primary::before { background: #6C5CE7; }

@@ -1,0 +1,41 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">📚 知识库扩充</text>
+    <text class="page-subtitle">上传文件扩充智能问答知识库</text>
+  </view>
+
+  <view class="card" style="padding:32rpx;border-radius:24rpx;margin-bottom:24rpx;">
+    <view class="form-group" style="margin-bottom:24rpx;">
+      <text class="form-label">支持格式</text>
+      <text style="font-size:24rpx;color:#8E82A5;display:block;margin-top:8rpx;">
+        TXT（每行：问题|答案|分类）\nJSON（[{question,answer,category}]）\nMD（同TXT格式）
+      </text>
+    </view>
+
+    <button class="btn-primary" bindtap="chooseFile" disabled="{{uploading}}">
+      {{uploading ? '⏳ 上传中...' : '📤 选择文件上传'}}
+    </button>
+
+    <view wx:if="{{result}}" class="result-box" style="margin-top:24rpx;padding:20rpx;border-radius:14rpx;background:{{result.success ? '#E8FAF3' : '#FFEEF0'}};color:{{result.success ? '#3BAD85' : '#FF5A6A'}};font-size:26rpx;">
+      {{result.msg}}
+    </view>
+  </view>
+
+  <view class="card" style="padding:28rpx;border-radius:24rpx;">
+    <view class="section-header" style="display:flex;justify-content:space-between;margin-bottom:16rpx;">
+      <text style="font-size:28rpx;font-weight:700;color:#2D223C;">📖 格式说明</text>
+      <text bindtap="toggleGuide" style="font-size:24rpx;color:#6C5CE7;">{{formatGuide ? '收起' : '展开'}}</text>
+    </view>
+    <view wx:if="{{formatGuide}}" style="font-size:24rpx;color:#8E82A5;line-height:1.8;">
+      <text>\n📄 TXT/MD 格式（每行一条）：</text>
+      <text style="display:block;background:#F5F3FA;padding:16rpx;border-radius:10rpx;margin:8rpx 0;color:#2D223C;">
+        如何请假？| 在请假Tab提交申请 | general\n查寝时间？| 每晚22点前 | general
+      </text>
+      <text>\n📄 JSON 格式：</text>
+      <text style="display:block;background:#F5F3FA;padding:16rpx;border-radius:10rpx;margin:8rpx 0;color:#2D223C;font-size:20rpx;">
+        [{"question":"如何请假？","answer":"在请假Tab提交申请","category":"general"}]
+      </text>
+      <text>\n分类可选：general / frontend / backend / database</text>
+    </view>
+  </view>
+</view>

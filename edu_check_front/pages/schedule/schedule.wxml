@@ -1,0 +1,41 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">📅 课程表</text>
+    <text class="page-subtitle">查看每周课程安排</text>
+  </view>
+
+  <!-- 星期标签 -->
+  <view class="weekday-bar">
+    <view class="weekday-item" wx:for="{{weekdays}}" wx:for-item="w" wx:key="index" data-day="{{w.index}}" bindtap="selectDay">
+      <text class="weekday-name {{w.isSelected ? 'selected-text' : ''}}">{{w.name}}</text>
+      <text class="weekday-date {{w.isToday ? 'today' : ''}} {{w.isSelected ? 'selected' : ''}}">{{w.date}}</text>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="schedule-list">
+    <view class="schedule-item" wx:for="{{scheduleList}}" wx:for-item="item" wx:key="id">
+      <view class="schedule-time">
+        <text class="schedule-start">{{item.startTime}}</text>
+        <view class="schedule-time-line">
+          <view class="time-dot"></view>
+          <view class="time-line"></view>
+        </view>
+        <text class="schedule-end">{{item.endTime}}</text>
+      </view>
+      <view class="schedule-card">
+        <text class="schedule-course-name">{{item.name}}</text>
+        <text class="schedule-teacher">{{item.teacher}}</text>
+        <view class="schedule-tags">
+          <text class="tag tag-primary">📍 {{item.location}}</text>
+          <text class="tag tag-default">📚 {{item.section}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{scheduleList.length === 0 && !loading}}">
+    <text>📭</text>
+    <text>当天暂无课程安排</text>
+  </view>
+</view>

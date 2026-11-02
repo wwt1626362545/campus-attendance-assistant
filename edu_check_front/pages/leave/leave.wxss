@@ -1,0 +1,335 @@
+/* =============================================
+  晨光校园 · 请假页面样式 v2.0
+  ============================================= */
+
+.page-header {
+  margin-bottom: 20rpx;
+}
+
+/* 通用操作卡片 */
+.action-card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+  gap: 24rpx;
+}
+
+.action-hover {
+  transform: scale(0.98);
+  background: #F3F0FF;
+}
+
+.action-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #F0EEFF, #E8E3FF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.action-emoji {
+  font-size: 36rpx;
+}
+
+.action-info {
+  flex: 1;
+}
+
+.action-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+}
+
+.action-desc {
+  font-size: 24rpx;
+  color: #8E82A5;
+  margin-top: 4rpx;
+}
+
+.action-arrow {
+  font-size: 36rpx;
+  color: #B8B0CC;
+}
+
+/* 快速提交 */
+.quick-apply {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+  border-radius: 20rpx;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+  background: linear-gradient(135deg, #F0EEFF, #F8F6FF);
+  border: 2rpx solid #EDE7F6;
+  transition: all 0.2s;
+}
+
+.apply-hover {
+  background: #E8E3FF;
+  border-color: #6C5CE7;
+}
+
+.quick-icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.08);
+}
+
+.quick-icon {
+  font-size: 34rpx;
+}
+
+.quick-info {
+  flex: 1;
+}
+
+.quick-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+}
+
+.quick-desc {
+  font-size: 24rpx;
+  color: #8E82A5;
+  margin-top: 2rpx;
+}
+
+.quick-arrow {
+  font-size: 36rpx;
+  color: #B8B0CC;
+}
+
+/* 统计条 */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx 0;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+.stats-bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats-bar-num {
+  font-size: 36rpx;
+  font-weight: 800;
+  margin-bottom: 4rpx;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats-bar-label {
+  font-size: 20rpx;
+  color: #8E82A5;
+}
+
+.stats-divider {
+  width: 2rpx;
+  height: 40rpx;
+  background: #EDE7F6;
+}
+
+/* 筛选栏 */
+.filter-row {
+  display: flex;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 4rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+}
+
+.filter-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 24rpx;
+  color: #8E82A5;
+  border-radius: 12rpx;
+  transition: all 0.25s ease;
+}
+
+.filter-tab.active {
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.2);
+}
+
+/* 请假列表 */
+.leave-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.leave-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: all 0.2s ease;
+}
+
+.item-active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.12);
+}
+
+.leave-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.leave-type {
+  padding: 6rpx 20rpx;
+  border-radius: 14rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.leave-type.sick {
+  background: #FFEEF0;
+  color: #FF5A6A;
+}
+
+.leave-type.personal {
+  background: #FFF5E6;
+  color: #E89B3C;
+}
+
+.leave-type.official {
+  background: #F0EEFF;
+  color: #6C5CE7;
+}
+
+.leave-type.annual {
+  background: #E8FAF3;
+  color: #3BAD85;
+}
+
+.leave-status {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+}
+
+.status-dot.status-pending {
+  background: #E89B3C;
+}
+
+.status-dot.status-approved {
+  background: #3BAD85;
+}
+
+.status-dot.status-rejected {
+  background: #FF5A6A;
+}
+
+.leave-status.status-pending {
+  color: #E89B3C;
+}
+
+.leave-status.status-approved {
+  color: #3BAD85;
+}
+
+.leave-status.status-rejected {
+  color: #FF5A6A;
+}
+
+.leave-detail {
+  background: #F8F7FF;
+  border-radius: 14rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.leave-detail-row {
+  display: flex;
+  margin-bottom: 8rpx;
+  font-size: 24rpx;
+}
+
+.leave-detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  color: #8E82A5;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  flex: 1;
+  color: #2D223C;
+  line-height: 1.5;
+}
+
+.leave-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leave-submit {
+  font-size: 22rpx;
+  color: #B8B0CC;
+}
+
+.leave-days-badge {
+  font-size: 22rpx;
+  color: #6C5CE7;
+  font-weight: 600;
+  padding: 4rpx 16rpx;
+  background: #F0EEFF;
+  border-radius: 12rpx;
+}
+
+/* 加载更多 */
+.load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 36rpx 0;
+}
+
+.load-more-line {
+  width: 48rpx;
+  height: 2rpx;
+  background: #EDE7F6;
+}
+
+.load-more-text {
+  font-size: 24rpx;
+  color: #B8B0CC;
+}

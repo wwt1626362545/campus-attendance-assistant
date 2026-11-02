@@ -1,0 +1,73 @@
+/* =============================================
+  晨光校园 · 实习打卡记录样式 v2.0
+  复用 course-history 样式
+  ============================================= */
+
+.page-header { margin-bottom: 24rpx; }
+
+.summary-bar {
+  display: flex;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx 0;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+.summary-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary-num {
+  font-size: 36rpx;
+  font-weight: 800;
+  margin-bottom: 4rpx;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-label {
+  font-size: 20rpx;
+  color: #8E82A5;
+}
+
+.summary-divider {
+  width: 2rpx;
+  height: 40rpx;
+  background: #EDE7F6;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.history-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.item-hover { transform: scale(0.98); }
+
+.history-left { flex: 1; }
+.history-date { font-size: 26rpx; color: #2D223C; font-weight: 500; }
+.history-time { font-size: 22rpx; color: #8E82A5; margin-top: 4rpx; display: block; }
+
+.load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 36rpx 0;
+}
+
+.load-more-line { width: 48rpx; height: 2rpx; background: #EDE7F6; }
+.load-more-text { font-size: 24rpx; color: #B8B0CC; }

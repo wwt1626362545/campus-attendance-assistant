@@ -1,0 +1,50 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">智能问答</text>
+    <text class="page-subtitle">AI 助手为您解答疑问</text>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="category-list">
+      <view class="category-tag {{category === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-cat="all"><text>全部</text></view>
+      <view class="category-tag {{category === 'frontend' ? 'active' : ''}}" bindtap="switchCategory" data-cat="frontend"><text>前端</text></view>
+      <view class="category-tag {{category === 'backend' ? 'active' : ''}}" bindtap="switchCategory" data-cat="backend"><text>后端</text></view>
+      <view class="category-tag {{category === 'database' ? 'active' : ''}}" bindtap="switchCategory" data-cat="database"><text>数据库</text></view>
+      <view class="category-tag {{category === 'general' ? 'active' : ''}}" bindtap="switchCategory" data-cat="general"><text>通用</text></view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class="chat-scroll" scroll-y scroll-into-view="{{scrollTarget}}" scroll-with-animation="{{true}}">
+    <view class="chat-area">
+      <!-- 热门问题 - 无消息时显示在聊天区域顶部 -->
+      <view class="quick-area" wx:if="{{messages.length === 0}}">
+        <view class="quick-title">{{category === 'all' ? '热门问题' : '相关问题'}}</view>
+        <view class="quick-tags" wx:if="{{hotList.length > 0}}">
+          <view class="btn-pill" wx:for="{{hotList}}" wx:key="id" bindtap="askQuestion" data-question="{{item.question}}">{{item.question}}</view>
+        </view>
+        <view class="quick-tags" wx:if="{{category !== 'all' && hotList.length === 0}}">
+          <view class="btn-pill" bindtap="switchCategory" data-cat="all">暂无该分类问题，点击查看全部</view>
+        </view>
+      </view>
+
+      <view class="msg-item {{item.role === 'user' ? 'msg-right' : 'msg-left'}}" wx:for="{{messages}}" wx:for-item="item" wx:key="index">
+        <view wx:if="{{item.role !== 'user'}}" class="msg-avatar bot-avatar">AI</view>
+        <view class="msg-content">
+          <view class="msg-bubble {{item.role === 'user' ? 'bubble-user' : 'bubble-bot'}}">
+            <text>{{item.content}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.role === 'user'}}" class="msg-avatar user-avatar">我</view>
+      </view>
+      <view id="msg-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入栏 -->
+  <view class="input-bar">
+    <input class="msg-input" type="text" placeholder="输入您的问题..." value="{{inputValue}}" bindinput="onInput" bindconfirm="send" />
+    <view class="btn-icon {{sendDisabled ? '' : 'active'}}" bindtap="send">
+      <text>发送</text>
+    </view>
+  </view>
+</view>

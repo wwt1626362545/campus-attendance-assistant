@@ -1,0 +1,35 @@
+.admin-stats { display:flex; gap:16rpx; margin-bottom:24rpx; }
+.stat-item { flex:1; background:#fff; border-radius:20rpx; padding:24rpx; text-align:center; box-shadow:0 4rpx 16rpx rgba(108,92,231,0.06); }
+.stat-num { display:block; font-size:40rpx; font-weight:800; color:#6C5CE7; }
+.stat-item text:last-child { font-size:22rpx; color:#8E82A5; margin-top:4rpx; }
+
+.admin-toolbar { margin-bottom:20rpx; }
+.search-input { width:100%; height:72rpx; background:#fff; border-radius:36rpx; padding:0 28rpx; font-size:26rpx; color:#2D223C; box-sizing:border-box; margin-bottom:12rpx; box-shadow:0 2rpx 8rpx rgba(108,92,231,0.06); }
+.admin-actions { display:flex; gap:12rpx; }
+.role-tag { padding:10rpx 28rpx; border-radius:28rpx; font-size:24rpx; background:#fff; color:#8E82A5; box-shadow:0 2rpx 8rpx rgba(108,92,231,0.06); }
+.role-tag.active { background:#6C5CE7; color:#fff; }
+
+.user-list { display:flex; flex-direction:column; gap:12rpx; }
+.user-item { display:flex; justify-content:space-between; align-items:center; background:#fff; border-radius:16rpx; padding:20rpx 24rpx; box-shadow:0 2rpx 8rpx rgba(108,92,231,0.04); }
+.user-info { display:flex; align-items:center; gap:10rpx; flex-wrap:wrap; }
+.user-name { font-size:28rpx; font-weight:600; color:#2D223C; }
+.user-sid { font-size:22rpx; color:#8E82A5; }
+.user-role-tag { font-size:18rpx; padding:2rpx 12rpx; border-radius:6rpx; }
+.user-role-tag.student { background:#F0EEFF; color:#6C5CE7; }
+.user-role-tag.teacher { background:#FFF5E6; color:#E89B3C; }
+.user-role-tag.admin { background:#FFE8E8; color:#FF6B7A; }
+.user-disabled { font-size:18rpx; color:#FF6B7A; background:#FFE8E8; padding:2rpx 10rpx; border-radius:6rpx; }
+.user-ops { display:flex; gap:6rpx; }
+.op-btn { width:48rpx; height:48rpx; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22rpx; }
+.op-btn:active { background:#F0EEFF; }
+.op-del:active { background:#FFE8E8; }
+
+.add-btn-wrap { padding:32rpx 0; }
+
+.form-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:99; }
+.form-modal { position:fixed; bottom:0; left:0; right:0; background:#fff; border-radius:24rpx 24rpx 0 0; padding:32rpx; z-index:100; }
+.form-modal-header { display:flex; justify-content:space-between; font-size:32rpx; font-weight:700; margin-bottom:24rpx; }
+.form-group { margin-bottom:16rpx; }
+.input-field { width:100%; height:72rpx; background:#F5F3FA; border-radius:12rpx; padding:0 20rpx; font-size:26rpx; box-sizing:border-box; }
+.picker-display { height:72rpx; line-height:72rpx; background:#F5F3FA; border-radius:12rpx; padding:0 20rpx; font-size:26rpx; color:#2D223C; }
+.loading-tip { text-align:center; padding:48rpx; font-size:26rpx; color:#B8B0CC; }

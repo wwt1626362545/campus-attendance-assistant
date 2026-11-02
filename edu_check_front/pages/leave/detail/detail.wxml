@@ -1,0 +1,83 @@
+﻿<view class="page-container">
+  <view class="card leave-detail-card">
+    <!-- 状态 -->
+    <view class="detail-status-banner {{leave.statusClass}}">
+      <text class="status-icon" wx:if="{{leave.status === 'pending'}}">⏳</text>
+      <text class="status-icon" wx:elif="{{leave.status === 'approved'}}">✅</text>
+      <text class="status-icon" wx:else>❌</text>
+      <view class="status-info">
+        <text class="status-name">{{leave.statusName}}</text>
+        <text class="status-desc">{{leave.statusDesc}}</text>
+      </view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="detail-section">
+      <text class="detail-section-title">📋 基本信息</text>
+      <view class="detail-row">
+        <text class="detail-label">请假类型</text>
+        <view class="dot-btn dot-btn-primary">
+          <text>{{leave.typeName}}</text>
+        </view>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">申请人</text>
+        <text class="detail-value">{{leave.studentName}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">学号</text>
+        <text class="detail-value">{{leave.studentId}}</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <!-- 时间信息 -->
+    <view class="detail-section">
+      <text class="detail-section-title">⏰ 时间信息</text>
+      <view class="detail-row">
+        <text class="detail-label">开始日期</text>
+        <text class="detail-value">{{leave.startDate}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">结束日期</text>
+        <text class="detail-value">{{leave.endDate}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">请假天数</text>
+        <text class="detail-value days-highlight">{{leave.days}} 天</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <!-- 事由 -->
+    <view class="detail-section">
+      <text class="detail-section-title">📝 请假事由</text>
+      <text class="detail-reason">{{leave.reason}}</text>
+    </view>
+
+    <!-- 审批信息 -->
+    <view class="divider" wx:if="{{leave.status !== 'pending'}}"></view>
+    <view class="detail-section" wx:if="{{leave.status !== 'pending'}}">
+      <text class="detail-section-title">📊 审批信息</text>
+      <view class="detail-row" wx:if="{{leave.approver}}">
+        <text class="detail-label">审批人</text>
+        <text class="detail-value">{{leave.approver}}</text>
+      </view>
+      <view class="detail-row" wx:if="{{leave.approveTime}}">
+        <text class="detail-label">审批时间</text>
+        <text class="detail-value">{{leave.approveTime}}</text>
+      </view>
+      <view class="detail-row" wx:if="{{leave.approveComment}}">
+        <text class="detail-label">审批意见</text>
+        <text class="detail-value">{{leave.approveComment}}</text>
+      </view>
+    </view>
+
+    <!-- 提交时间 -->
+    <view class="detail-submit-info">
+      <text>提交于 {{leave.submitTime}}</text>
+    </view>
+  </view>
+</view>

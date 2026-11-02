@@ -1,0 +1,66 @@
+<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">⚙️ 系统管理</text>
+    <text class="page-subtitle">{{userRole === 'admin' ? '管理所有账号' : '管理学生账号'}}</text>
+  </view>
+
+  <!-- 统计 -->
+  <view class="admin-stats">
+    <view class="stat-item"><text class="stat-num">{{stats.studentCount || 0}}</text><text>学生</text></view>
+    <view class="stat-item" wx:if="{{userRole === 'admin'}}"><text class="stat-num">{{stats.teacherCount || 0}}</text><text>教师</text></view>
+    <view class="stat-item"><text class="stat-num">{{stats.activeCount || 0}}</text><text>活跃</text></view>
+  </view>
+
+  <!-- 搜索与筛选 -->
+  <view class="admin-toolbar">
+    <input class="search-input" placeholder="搜索姓名/学号..." bindinput="onSearch" />
+    <view class="admin-actions">
+      <view class="role-tag {{roleFilter === 'all' ? 'active' : ''}}" bindtap="onRoleFilter" data-role="all">全部</view>
+      <view class="role-tag {{roleFilter === 'student' ? 'active' : ''}}" bindtap="onRoleFilter" data-role="student">学生</view>
+      <view class="role-tag {{roleFilter === 'teacher' ? 'active' : ''}}" wx:if="{{userRole === 'admin'}}" bindtap="onRoleFilter" data-role="teacher">教师</view>
+    </view>
+  </view>
+
+  <!-- 用户列表 -->
+  <view wx:if="{{loading}}" class="loading-tip">加载中...</view>
+  <view class="user-list" wx:if="{{!loading}}">
+    <view class="user-item" wx:for="{{users}}" wx:key="id">
+      <view class="user-info">
+        <text class="user-name">{{item.name}}</text>
+        <text class="user-sid">{{item.studentId}}</text>
+        <text class="user-role-tag {{item.role}}">{{item.role === 'teacher' ? '教师' : item.role === 'admin' ? '管理员' : '学生'}}</text>
+        <text wx:if="{{item.status === 0}}" class="user-disabled">已禁用</text>
+      </view>
+      <view class="user-ops">
+        <view class="op-btn" bindtap="showEditForm" data-user="{{item}}">✏️</view>
+        <view class="op-btn" bindtap="toggleStatus" data-id="{{item.id}}">🔁</view>
+        <view class="op-btn op-del" bindtap="deleteUser" data-id="{{item.id}}">🗑️</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-btn-wrap">
+    <button class="btn-primary" bindtap="showAddForm">+ 添加用户</button>
+  </view>
+
+  <!-- 表单弹窗 -->
+  <view class="form-overlay" wx:if="{{showForm}}" bindtap="hideForm"></view>
+  <view class="form-modal" wx:if="{{showForm}}">
+    <view class="form-modal-header">
+      <text>{{editUser ? '编辑用户' : '添加用户'}}</text>
+      <text bindtap="hideForm">✕</text>
+    </view>
+    <view class="form-group"><input class="input-field" placeholder="姓名" value="{{form.name}}" bindinput="onNameInput" /></view>
+    <view class="form-group"><input class="input-field" placeholder="学号/工号" value="{{form.studentId}}" bindinput="onSidInput" /></view>
+    <view class="form-group"><input class="input-field" placeholder="密码（默认123456）" value="{{form.password}}" bindinput="onPwdInput" /></view>
+    <view class="form-group"><input class="input-field" placeholder="学院" value="{{form.college}}" bindinput="onCollegeInput" /></view>
+    <view class="form-group" wx:if="{{userRole === 'admin'}}">
+      <picker mode="selector" range="{{[['student','学生'],['teacher','教师']]}}" range-key="1" bindchange="onRoleChange">
+        <view class="picker-display">{{form.role === 'teacher' ? '教师' : '学生'}}</view>
+      </picker>
+    </view>
+    <input type="text" hidden name="role" value="{{form.role}}" />
+    <button class="btn-primary" bindtap="submit" disabled="{{submitting}}">{{submitting ? '提交中...' : '保存'}}</button>
+  </view>
+</view>

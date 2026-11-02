@@ -1,0 +1,76 @@
+﻿<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">🔑 动态码管理</text>
+    <text class="page-subtitle">生成签到动态码</text>
+  </view>
+
+  <view class="card code-card">
+    <view class="code-card-header">
+      <text class="code-section-title">🎯 生成新动态码</text>
+    </view>
+
+    <view class="code-config">
+      <view class="code-config-item">
+        <text class="config-label">选择课程</text>
+        <picker value="{{courseIndex}}" range="{{courseOptions}}" bindchange="onCourseChange">
+          <view class="picker-value">
+            <text class="picker-label" wx:if="{{courseIndex >= 0}}">📚</text>
+            {{courseOptions[courseIndex] || '请选择课程'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="code-config-item">
+        <text class="config-label">有效时长</text>
+        <view class="toggle-pill">
+          <view class="toggle-pill-item {{duration === 30 ? 'active' : ''}}" bindtap="setDuration" data-duration="30">
+            <text>30秒</text>
+          </view>
+          <view class="toggle-pill-item {{duration === 60 ? 'active' : ''}}" bindtap="setDuration" data-duration="60">
+            <text>1分钟</text>
+          </view>
+          <view class="toggle-pill-item {{duration === 120 ? 'active' : ''}}" bindtap="setDuration" data-duration="120">
+            <text>2分钟</text>
+          </view>
+          <view class="toggle-pill-item {{duration === 300 ? 'active' : ''}}" bindtap="setDuration" data-duration="300">
+            <text>5分钟</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <button class="btn-primary" bindtap="generateCode" disabled="{{generating}}">
+      {{generating ? '⏳ 生成中...' : '✦ 生成动态码'}}
+    </button>
+
+    <!-- 当前动态码 -->
+    <view class="code-display" wx:if="{{currentCode}}">
+      <view class="code-display-bg"></view>
+      <text class="code-label">当前动态码</text>
+      <text class="code-value">{{currentCode}}</text>
+      <view class="code-countdown">
+        <view class="countdown-bar" style="width: {{countdownPercent}}%;"></view>
+      </view>
+      <text class="code-expire">剩余 {{remainingSeconds}} 秒后失效</text>
+    </view>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="card code-history-card">
+    <view class="card-header-row">
+      <text class="card-section-title">📋 历史动态码</text>
+    </view>
+    <view class="history-list">
+      <view class="code-history-item" wx:for="{{historyCodes}}" wx:key="index">
+        <view class="history-top">
+          <text class="history-code-value">{{item.code}}</text>
+          <text class="tag {{item.isActive ? 'tag-success' : 'tag-default'}}">{{item.isActive ? '有效' : '已失效'}}</text>
+        </view>
+        <view class="history-meta">
+          <text class="history-course">{{item.courseName}}</text>
+          <text class="history-time">{{item.createTime}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

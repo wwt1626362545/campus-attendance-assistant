@@ -1,0 +1,121 @@
+/* =============================================
+  晨光校园 · 请假审批（教师端）样式 v2.0
+  ============================================= */
+
+.page-header { margin-bottom: 20rpx; }
+
+/* 复用请假页面的统计条/筛选/列表样式 */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx 0;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+}
+
+.stats-bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.stats-bar-num { font-size: 36rpx; font-weight: 800; margin-bottom: 4rpx; font-variant-numeric: tabular-nums; }
+.stats-bar-label { font-size: 20rpx; color: #8E82A5; }
+.stats-divider { width: 2rpx; height: 40rpx; background: #EDE7F6; }
+
+.filter-row {
+  display: flex;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 4rpx;
+  box-shadow: 0 2rpx 8rpx rgba(108, 92, 231, 0.06);
+}
+
+.filter-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 24rpx;
+  color: #8E82A5;
+  border-radius: 12rpx;
+  transition: all 0.25s ease;
+}
+
+.filter-tab.active {
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.2);
+}
+
+.leave-list { display: flex; flex-direction: column; gap: 20rpx; }
+
+.leave-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: all 0.2s;
+}
+
+.item-active { transform: scale(0.98); }
+
+.leave-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20rpx; }
+.leave-top-left { display: flex; align-items: center; gap: 16rpx; }
+
+.leave-avatar-wrap {
+  width: 72rpx; height: 72rpx;
+  border-radius: 50%; overflow: hidden;
+  border: 2rpx solid #EDE7F6;
+  flex-shrink: 0;
+}
+
+.leave-avatar { width: 100%; height: 100%; }
+
+.leave-name-box { display: flex; flex-direction: column; gap: 4rpx; }
+.leave-student-name { font-size: 28rpx; font-weight: 700; color: #2D223C; }
+
+.leave-type-tag {
+  display: inline-block;
+  padding: 2rpx 14rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+.leave-type-tag.sick { background: #FFEEF0; color: #FF5A6A; }
+.leave-type-tag.personal { background: #FFF5E6; color: #E89B3C; }
+.leave-type-tag.official { background: #F0EEFF; color: #6C5CE7; }
+.leave-type-tag.annual { background: #E8FAF3; color: #3BAD85; }
+
+.leave-status { display: flex; align-items: center; gap: 8rpx; font-size: 24rpx; font-weight: 600; }
+.leave-status.status-pending { color: #E89B3C; }
+.leave-status.status-approved { color: #3BAD85; }
+.leave-status.status-rejected { color: #FF5A6A; }
+
+.status-dot { width: 10rpx; height: 10rpx; border-radius: 50%; }
+.status-dot.status-pending { background: #E89B3C; }
+.status-dot.status-approved { background: #3BAD85; }
+.status-dot.status-rejected { background: #FF5A6A; }
+
+.leave-detail {
+  background: #F8F7FF;
+  border-radius: 14rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.leave-detail-row { display: flex; margin-bottom: 8rpx; font-size: 24rpx; }
+.leave-detail-row:last-child { margin-bottom: 0; }
+.detail-label { color: #8E82A5; width: 100rpx; flex-shrink: 0; }
+.detail-value { flex: 1; color: #2D223C; }
+
+.leave-footer { display: flex; justify-content: space-between; align-items: center; }
+.leave-submit { font-size: 22rpx; color: #B8B0CC; }
+.leave-days-badge { font-size: 22rpx; color: #6C5CE7; font-weight: 600; padding: 4rpx 16rpx; background: #F0EEFF; border-radius: 12rpx; }
+
+.leave-actions { display: flex; gap: 16rpx; margin-top: 16rpx; padding-top: 16rpx; border-top: 2rpx solid #F3EFF9; }
+.leave-action-btn { flex: 1; text-align: center; padding: 16rpx 0; border-radius: 12rpx; font-size: 26rpx; font-weight: 600; }
+.action-approve { background: #E8FAF3; color: #3BAD85; }
+.action-approve:active { background: #D4F5E8; }
+.action-reject { background: #FFEEF0; color: #FF5A6A; }
+.action-reject:active { background: #FFDDE0; }
+.leave-reply { margin-top: 12rpx; padding: 12rpx 16rpx; background: #FFF5E6; border-radius: 8rpx; font-size: 22rpx; color: #E89B3C; }
+
+.empty-state { display: flex; flex-direction: column; align-items: center; padding: 100rpx 0; }
+.empty-state text { font-size: 28rpx; color: #B8B0CC; margin-top: 20rpx; }

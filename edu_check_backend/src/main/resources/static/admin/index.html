@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园考勤助手 - 管理后台</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif; background:#F5F7FA; color:#2D223C; }
+.header { background:linear-gradient(135deg,#6C5CE7,#A29BFE); color:#fff; padding:24px 40px; }
+.header h1 { font-size:24px; }
+.header p { opacity:0.85; margin-top:4px; font-size:14px; }
+.container { max-width:1200px; margin:0 auto; padding:24px; }
+.login-box { max-width:380px; margin:80px auto; background:#fff; border-radius:16px; padding:40px; box-shadow:0 8px 32px rgba(108,92,231,0.12); }
+.login-box h2 { text-align:center; margin-bottom:24px; color:#2D223C; }
+.login-box input { width:100%; height:44px; border:2px solid #EDE7F6; border-radius:10px; padding:0 16px; font-size:15px; margin-bottom:16px; outline:none; }
+.login-box input:focus { border-color:#6C5CE7; }
+.login-box button { width:100%; height:44px; background:#6C5CE7; color:#fff; border:none; border-radius:10px; font-size:16px; cursor:pointer; }
+.login-box button:hover { opacity:0.9; }
+.login-box .error { color:#FF6B7A; font-size:13px; text-align:center; margin-top:8px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px; }
+.stat-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(108,92,231,0.08); }
+.stat-card h3 { font-size:13px; color:#8E82A5; margin-bottom:8px; }
+.stat-card .num { font-size:32px; font-weight:800; color:#6C5CE7; }
+.section { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; box-shadow:0 2px 8px rgba(108,92,231,0.08); }
+.section h2 { font-size:18px; margin-bottom:16px; color:#2D223C; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th,td { text-align:left; padding:10px 12px; border-bottom:1px solid #F0EEFF; }
+th { font-weight:600; color:#8E82A5; font-size:12px; }
+.logout { float:right; color:#fff; opacity:0.85; cursor:pointer; font-size:14px; padding:6px 16px; border:1px solid rgba(255,255,255,0.3); border-radius:20px; }
+.logout:hover { opacity:1; background:rgba(255,255,255,0.1); }
+</style>
+</head>
+<body>
+<div class="header" id="header"><h1>📊 校园考勤助手 · 管理后台</h1><p>数据报表平台</p></div>
+<div class="container" id="app"><div class="loading" style="text-align:center;padding:80px;color:#8E82A5;">加载中...</div></div>
+
+<script>
+const BASE = 'http://localhost:8081/api';
+
+function getToken() { return localStorage.getItem('adminToken') || ''; }
+
+async function api(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json', 'Authorization': getToken() };
+  const res = await fetch(BASE + path, { ...opts, headers });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(res.status + ': ' + text.substring(0, 200));
+  }
+  const data = await res.json();
+  if (data.code === 401 && !path.includes('/auth/login')) { showLogin(); return null; }
+  return data;
+}
+
+function showError(msg) {
+  document.getElementById('app').innerHTML = `<div class="error" style="text-align:center;padding:40px;color:#FF6B7A;">❌ ${msg}</div>`;
+}
+
+function showLogin(errMsg) {
+  document.getElementById('app').innerHTML = `
+    <div class="login-box">
+      <h2>🔐 管理员登录</h2>
+      <input type="text" id="user" placeholder="学号/工号" value="admin" />
+      <input type="password" id="pass" placeholder="密码" value="123456" />
+      <button onclick="doLogin()">登 录</button>
+      <div class="error" id="err">${errMsg || ''}</div>
+    </div>`;
+}
+
+async function doLogin() {
+  const user = document.getElementById('user').value;
+  const pass = document.getElementById('pass').value;
+  const res = await api('/auth/login', {
+    method: 'POST', body: JSON.stringify({ studentId: user, password: pass })
+  });
+  if (res && res.code === 200) {
+    localStorage.setItem('adminToken', res.data.token);
+    location.reload();
+  } else {
+    showLogin(res?.message || '登录失败');
+  }
+}
+
+function fmtTime(t) { if(!t)return''; try{return new Date(t).toLocaleString('zh-CN');}catch(e){return t;} }
+
+async function loadAll() {
+  const token = getToken();
+  if (!token) { showLogin(); return; }
+  try {
+    const [adminR, teacherR, leaveR, repairR] = await Promise.all([
+      api('/admin/stats'), api('/teacher/checkin/today-summary'),
+      api('/leaves/teacher/stats'), api('/repair/stats')
+    ]);
+    const adminStats = adminR?.data, teacherSummary = teacherR?.data, leaveStats = leaveR?.data, repairStats = repairR?.data;
+
+    document.getElementById('app').innerHTML = `
+      <div style="margin-bottom:24px;text-align:right;"><span class="logout" onclick="localStorage.removeItem('adminToken');location.reload()">退出登录</span></div>
+      <div class="stats-grid">
+        <div class="stat-card"><h3>👨‍🎓 学生总数</h3><div class="num">${adminStats?.studentCount || 0}</div></div>
+        <div class="stat-card"><h3>👨‍🏫 教师总数</h3><div class="num">${adminStats?.teacherCount || 0}</div></div>
+        <div class="stat-card"><h3>✅ 今日上课</h3><div class="num">${teacherSummary?.classChecked || 0}/${teacherSummary?.totalStudents || 0}</div></div>
+        <div class="stat-card"><h3>🏠 今日查寝</h3><div class="num">${teacherSummary?.dormChecked || 0}/${teacherSummary?.totalStudents || 0}</div></div>
+        <div class="stat-card"><h3>📋 待批请假</h3><div class="num">${leaveStats?.pending || 0}</div></div>
+        <div class="stat-card"><h3>🔧 待修报修</h3><div class="num">${repairStats?.pending || 0}</div></div>
+      </div>
+      <div class="section"><h2>📋 系统概况 <button class="refresh" onclick="location.reload()" style="float:right;background:#6C5CE7;color:#fff;border:none;padding:4px 14px;border-radius:16px;cursor:pointer;font-size:12px;">刷新</button></h2>
+        <table><tr><th>指标</th><th>数量</th></tr>
+          <tr><td>学生账号</td><td>${adminStats?.studentCount || 0}</td></tr>
+          <tr><td>教师账号</td><td>${adminStats?.teacherCount || 0}</td></tr>
+          <tr><td>活跃用户</td><td>${adminStats?.activeCount || 0}</td></tr>
+        </table>
+      </div>
+      <div class="section"><h2>📊 今日考勤</h2>
+        <table><tr><th>项目</th><th>已签到</th><th>未签到</th><th>总计</th></tr>
+          <tr><td>上课签到</td><td>${teacherSummary?.classChecked||0}</td><td>${teacherSummary?.classNotChecked||0}</td><td>${teacherSummary?.totalStudents||0}</td></tr>
+          <tr><td>查寝打卡</td><td>${teacherSummary?.dormChecked||0}</td><td>${teacherSummary?.dormNotChecked||0}</td><td>${teacherSummary?.totalStudents||0}</td></tr>
+        </table>
+      </div>
+      <div class="section"><h2>📋 请假统计</h2>
+        <table><tr><th>状态</th><th>数量</th></tr>
+          <tr><td>待审批</td><td>${leaveStats?.pending||0}</td></tr>
+          <tr><td>已通过</td><td>${leaveStats?.approved||0}</td></tr>
+          <tr><td>已驳回</td><td>${leaveStats?.rejected||0}</td></tr>
+          <tr><td><strong>总计</strong></td><td><strong>${leaveStats?.total||0}</strong></td></tr>
+        </table>
+      </div>
+      <div class="section"><h2>🔧 报修统计</h2>
+        <table><tr><th>状态</th><th>数量</th></tr>
+          <tr><td>待处理</td><td>${repairStats?.pending||0}</td></tr>
+          <tr><td>已处理</td><td>${repairStats?.done||0}</td></tr>
+          <tr><td><strong>总计</strong></td><td><strong>${repairStats?.total||0}</strong></td></tr>
+        </table>
+      </div>
+      <div style="text-align:center;padding:20px;color:#B8B0CC;font-size:13px;">
+        校园考勤助手 v2.0 &copy; 2026 &nbsp;|&nbsp; <a href="http://localhost:8081/swagger-ui.html" target="_blank" style="color:#6C5CE7;">API 文档</a>
+      </div>`;
+  } catch(e) {
+    showError('加载失败：' + e.message);
+  }
+}
+if (getToken()) loadAll(); else showLogin();
+</script>
+</body>
+</html>

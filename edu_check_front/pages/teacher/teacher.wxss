@@ -1,0 +1,143 @@
+/* =============================================
+  晨光校园 · 教师工作台样式 v2.0
+  ============================================= */
+
+.page-header {
+  margin-bottom: 24rpx;
+}
+
+/* 统计块 */
+.teacher-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+}
+
+.stat-block {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.08);
+  transition: all 0.2s;
+  border-left: 4rpx solid #6C5CE7;
+}
+
+.stat-green {
+  border-left-color: #55C9A6;
+}
+
+.stat-red {
+  border-left-color: #FF6B7A;
+}
+
+.stat-block-hover {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+.stat-block-num {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #2D223C;
+  margin-bottom: 6rpx;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-block-label {
+  display: block;
+  font-size: 22rpx;
+  color: #8E82A5;
+}
+
+/* 区块标题 */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+}
+
+.section-title-line {
+  width: 40rpx;
+  height: 4rpx;
+  border-radius: 4rpx;
+  background: linear-gradient(90deg, transparent, #6C5CE7);
+}
+
+.section-title-line:last-child {
+  background: linear-gradient(90deg, #6C5CE7, transparent);
+}
+
+.section-title-text {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+  letter-spacing: 2rpx;
+}
+
+/* 功能卡片 */
+.feature-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.feature-card {
+  border-radius: 24rpx;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.feature-active {
+  transform: scale(0.97);
+}
+
+.feature-bg {
+  padding: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.feature-teacher-students {
+  background: linear-gradient(135deg, #F0EEFF 0%, #E8E3FF 100%);
+}
+
+.feature-teacher-leave {
+  background: linear-gradient(135deg, #FFF5E6 0%, #FFECD2 100%);
+}
+
+.feature-icon-box {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.08);
+}
+
+.feature-emoji {
+  font-size: 36rpx;
+}
+
+.feature-info {
+  flex: 1;
+}
+
+.feature-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #2D223C;
+  margin-bottom: 2rpx;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: #8E82A5;
+}

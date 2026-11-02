@@ -1,0 +1,44 @@
+﻿<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">人脸识别</text>
+    <text class="page-subtitle">录入人脸信息用于打卡验证</text>
+  </view>
+
+  <view class="card face-info-card">
+    <view class="face-status-icon {{registered ? 'registered' : ''}}">
+      <text>{{registered ? "✅" : "📷"}}</text>
+    </view>
+    <text class="face-status-title">{{registered ? "人脸已录入" : "人脸未录入"}}</text>
+    <text class="face-status-desc">{{registered ? "您的人脸信息已注册，可用于打卡验证。" : "请拍照上传人脸信息，用于打卡时的身份验证。"}}</text>
+
+    <!-- 拍照预览 -->
+    <view class="face-preview-area" wx:if="{{photoTaken && photoUrl}}">
+      <image src="{{photoUrl}}" mode="aspectFill" class="face-preview-img" />
+      <view class="face-preview-actions">
+        <text class="btn-ghost btn-ghost-primary" bindtap="retakePhoto">重新拍照</text>
+      </view>
+    </view>
+
+    <!-- 结果提示 -->
+    <view class="face-result {{resultSuccess ? 'result-success' : 'result-fail'}}" wx:if="{{resultVisible}}">
+      <text>{{resultMsg}}</text>
+    </view>
+
+    <!-- 操作按钮 -->
+    <button class="btn-primary" wx:if="{{!photoTaken}}" bindtap="takePhoto" loading="{{submitting}}">
+      拍照录入
+    </button>
+    <button class="btn-primary" wx:else bindtap="submitFace" loading="{{submitting}}" disabled="{{submitting}}">
+      {{submitting ? "提交中..." : "提交人脸信息"}}
+    </button>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="card face-tips-card">
+    <view class="tips-title">温馨提示</view>
+    <view class="tip-item">请确保光线充足，面部无遮挡</view>
+    <view class="tip-item">请正面面向摄像头</view>
+    <view class="tip-item">请勿佩戴墨镜、口罩等遮挡物</view>
+    <view class="tip-item">录入后可在打卡时进行人脸验证</view>
+  </view>
+</view>

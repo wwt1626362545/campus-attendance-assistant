@@ -1,0 +1,122 @@
+<view class="page-container">
+
+  <!-- 教师视图 -->
+  <block wx:if="{{isTeacher}}">
+    <view class="page-header">
+      <text class="page-title">📋 请假审批</text>
+      <text class="page-subtitle">管理学生请假申请</text>
+    </view>
+    <view class="card action-card" bindtap="goLeaveApprove" hover-class="action-hover">
+      <view class="action-icon">
+        <text class="action-emoji">📝</text>
+      </view>
+      <view class="action-info">
+        <text class="action-title">进入审批</text>
+        <text class="action-desc">查看并处理待审批的请假申请</text>
+      </view>
+      <text class="action-arrow">›</text>
+    </view>
+  </block>
+
+  <!-- 学生视图 -->
+  <block wx:if="{{!isTeacher}}">
+    <!-- 页面头部 -->
+    <view class="page-header">
+      <text class="page-title">📋 请假管理</text>
+      <text class="page-subtitle">提交与查看请假记录</text>
+    </view>
+
+    <!-- 快速提交 -->
+    <view class="quick-apply" bindtap="applyLeave" hover-class="apply-hover">
+      <view class="quick-icon-wrap">
+        <text class="quick-icon">✏️</text>
+      </view>
+      <view class="quick-info">
+        <text class="quick-title">提交请假申请</text>
+        <text class="quick-desc">病假、事假、公假...</text>
+      </view>
+      <text class="quick-arrow">›</text>
+    </view>
+
+    <!-- 统计卡片 -->
+    <view class="stats-bar">
+      <view class="stats-bar-item">
+        <text class="stats-bar-num">{{stats.total}}</text>
+        <text class="stats-bar-label">总申请</text>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-bar-item">
+        <text class="stats-bar-num">{{stats.pending}}</text>
+        <text class="stats-bar-label">审批中</text>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-bar-item">
+        <text class="stats-bar-num">{{stats.approved}}</text>
+        <text class="stats-bar-label">已通过</text>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-bar-item">
+        <text class="stats-bar-num">{{stats.rejected}}</text>
+        <text class="stats-bar-label">已驳回</text>
+      </view>
+    </view>
+
+    <!-- 筛选标签 -->
+    <view class="toggle-pill">
+      <view class="toggle-pill-item {{filterType === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-type="all">
+        <text>全部</text>
+      </view>
+      <view class="toggle-pill-item {{filterType === 'pending' ? 'active' : ''}}" bindtap="switchFilter" data-type="pending">
+        <text>⏳ 审批中</text>
+      </view>
+      <view class="toggle-pill-item {{filterType === 'approved' ? 'active' : ''}}" bindtap="switchFilter" data-type="approved">
+        <text>✅ 已通过</text>
+      </view>
+      <view class="toggle-pill-item {{filterType === 'rejected' ? 'active' : ''}}" bindtap="switchFilter" data-type="rejected">
+        <text>❌ 已驳回</text>
+      </view>
+    </view>
+
+    <!-- 请假列表 -->
+    <view class="leave-list">
+      <view class="leave-item" wx:for="{{leaveList}}" wx:for-item="item" wx:key="id" bindtap="viewLeaveDetail" data-id="{{item.id}}" hover-class="item-active">
+        <view class="leave-top">
+          <view class="leave-type {{item.typeClass}}">
+            <text>{{item.typeName}}</text>
+          </view>
+          <view class="leave-status {{item.statusClass}}">
+            <view class="status-dot {{item.statusClass}}"></view>
+            <text>{{item.statusName}}</text>
+          </view>
+        </view>
+        <view class="leave-detail">
+          <view class="leave-detail-row">
+            <text class="detail-label">📅 请假时段</text>
+            <text class="detail-value">{{item.startDate}} ~ {{item.endDate}}</text>
+          </view>
+          <view class="leave-detail-row">
+            <text class="detail-label">📝 请假事由</text>
+            <text class="detail-value">{{item.reason}}</text>
+          </view>
+        </view>
+        <view class="leave-footer">
+          <text class="leave-submit">提交于 {{item.submitTime}}</text>
+          <text class="leave-days-badge">{{item.days}} 天</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{leaveList.length === 0}}">
+      <text>📭</text>
+      <text>暂无请假记录</text>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{leaveList.length > 0}}" bindtap="loadMore">
+      <view class="load-more-line"></view>
+      <text class="load-more-text">{{hasMore ? '加载更多' : '没有更多了'}}</text>
+      <view class="load-more-line"></view>
+    </view>
+  </block>
+</view>

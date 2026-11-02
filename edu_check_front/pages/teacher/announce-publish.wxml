@@ -1,0 +1,96 @@
+﻿<view class="page-container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">公告管理</text>
+    <text class="page-subtitle">发布与管理校园公告</text>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="action-bar">
+    <button class="btn-primary create-btn" bindtap="showCreateForm">
+      + 发布公告
+    </button>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading && announceList.length === 0}}" class="loading-state">
+    <view class="loading-ring"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!loading && announceList.length === 0}}" class="empty-state">
+    <text>暂无公告，点击上方按钮发布</text>
+  </view>
+
+  <!-- 公告列表 -->
+  <view class="announce-list">
+    <view class="card announce-item" wx:for="{{announceList}}" wx:key="id">
+      <view class="announce-header">
+        <text class="type-tag {{item.type}}">{{item.typeName}}</text>
+        <text class="announce-top-tag" wx:if="{{item.isTop}}">置顶</text>
+      </view>
+      <text class="announce-title">{{item.title}}</text>
+      <text class="announce-summary">{{item.summary}}</text>
+      <view class="announce-footer">
+        <text class="announce-date">{{item.createdAt}}</text>
+        <text class="announce-reads">{{item.readCount || 0}} 人已读</text>
+      </view>
+      <view class="announce-actions">
+        <text class="btn-ghost btn-ghost-primary" bindtap="editAnnouncement" data-item="{{item}}">编辑</text>
+        <text class="btn-ghost btn-ghost-danger" bindtap="deleteAnnouncement" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 发布/编辑弹窗 -->
+  <view class="form-overlay {{showForm ? 'show' : ''}}" catchtouchmove="preventDefault">
+    <view class="form-modal">
+      <view class="form-modal-header">
+        <text class="form-modal-title">{{editId ? "编辑公告" : "发布公告"}}</text>
+        <text class="form-modal-close" bindtap="hideForm">X</text>
+      </view>
+
+      <scroll-view class="form-modal-body" scroll-y>
+        <view class="form-group">
+          <text class="form-label">公告类型</text>
+          <picker value="{{typeIndex}}" range="{{typeOptions}}" range-key="name" bindchange="onTypeChange">
+            <view class="picker-value">{{form.typeName || "请选择类型"}}</view>
+          </picker>
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">标题</text>
+          <input class="form-input" placeholder="请输入公告标题" value="{{form.title}}" bindinput="onFieldChange" data-field="title" />
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">摘要</text>
+          <textarea class="form-textarea" placeholder="请输入公告摘要" value="{{form.summary}}" bindinput="onFieldChange" data-field="summary" />
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">正文内容</text>
+          <textarea class="form-textarea large" placeholder="请输入公告正文" value="{{form.content}}" bindinput="onFieldChange" data-field="content" />
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">发布部门</text>
+          <input class="form-input" placeholder="填写发布部门名称" value="{{form.department}}" bindinput="onFieldChange" data-field="department" />
+        </view>
+
+        <view class="form-group form-switch-group">
+          <text class="form-label">设为置顶</text>
+          <switch checked="{{form.isTop === 1}}" bindchange="onTopChange" color="#6C5CE7" />
+        </view>
+      </scroll-view>
+
+      <view class="form-modal-footer">
+        <button class="btn-secondary" bindtap="hideForm">取消</button>
+        <button class="btn-primary form-submit-btn" bindtap="submitForm" disabled="{{submitting}}">
+          {{submitting ? "提交中..." : (editId ? "更新公告" : "发布公告")}}
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

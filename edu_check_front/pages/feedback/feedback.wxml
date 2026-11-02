@@ -1,0 +1,91 @@
+<view class="page-container">
+
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">💬 意见反馈</text>
+    <text class="page-subtitle">您的建议是我们进步的动力</text>
+  </view>
+
+  <!-- 提交按钮（学生/用户） -->
+  <view class="section-header" wx:if="{{role !== 'teacher'}}">
+    <view class="section-title-line"></view>
+    <text class="section-title-text">提交反馈</text>
+    <view class="section-title-line"></view>
+  </view>
+
+  <view class="card form-card" wx:if="{{role !== 'teacher'}}">
+    <view class="form-group">
+      <text class="form-label">反馈类型</text>
+      <view class="type-options">
+        <view class="type-option {{form.type === 'bug' ? 'active' : ''}}" bindtap="setType" data-type="bug">
+          <text>🐛</text>
+          <text>功能异常</text>
+        </view>
+        <view class="type-option {{form.type === 'suggestion' ? 'active' : ''}}" bindtap="setType" data-type="suggestion">
+          <text>💡</text>
+          <text>功能建议</text>
+        </view>
+        <view class="type-option {{form.type === 'complaint' ? 'active' : ''}}" bindtap="setType" data-type="complaint">
+          <text>⚠️</text>
+          <text>投诉</text>
+        </view>
+        <view class="type-option {{form.type === 'other' ? 'active' : ''}}" bindtap="setType" data-type="other">
+          <text>📝</text>
+          <text>其他</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">反馈内容</text>
+      <textarea class="form-textarea" placeholder="请详细描述您的问题或建议..." value="{{form.content}}" bindinput="onContentInput" maxlength="500" />
+      <text class="form-counter">{{form.content.length || 0}}/500</text>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">联系方式（选填）</text>
+      <input class="input-field" type="text" placeholder="手机号 / QQ / 微信" value="{{form.contact}}" bindinput="onContactInput" />
+    </view>
+
+    <button class="btn-primary" bindtap="submit" disabled="{{submitting || !canSubmit}}">
+      {{submitting ? '⏳ 提交中...' : '✉️ 提交反馈'}}
+    </button>
+  </view>
+
+  <!-- 反馈列表 -->
+  <view class="section-header">
+    <view class="section-title-line"></view>
+    <text class="section-title-text">{{role === 'teacher' ? '全部反馈' : '我的反馈'}}</text>
+    <view class="section-title-line"></view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-tip">加载中...</view>
+
+  <view wx:if="{{!loading && list.length === 0}}" class="empty-tip">
+    <text>暂无反馈记录</text>
+  </view>
+
+  <view class="feedback-list" wx:if="{{!loading && list.length > 0}}">
+    <view class="feedback-item" wx:for="{{list}}" wx:key="id" wx:for-item="fb">
+      <view class="fb-header">
+        <text class="fb-type type-{{fb.type}}">{{typeName(fb.type)}}</text>
+        <text class="fb-status {{fb.status}}">{{fb.status === 'resolved' ? '已处理' : '待处理'}}</text>
+      </view>
+      <text class="fb-content">{{fb.content}}</text>
+      <view class="fb-footer">
+        <text class="fb-contact" wx:if="{{fb.contact}}">📞 {{fb.contact}}</text>
+        <text class="fb-time">{{formatTime(fb.createdAt)}}</text>
+      </view>
+      <view class="fb-reply" wx:if="{{fb.reply}}">
+        <text class="fb-reply-label">💬 回复：</text>
+        <text class="fb-reply-text">{{fb.reply}}</text>
+      </view>
+      <!-- 教师回复区 -->
+      <view class="fb-teacher-reply" wx:if="{{role === 'teacher' && fb.status === 'pending'}}" catchtap="noop">
+        <input class="reply-input" placeholder="输入回复内容..." bindinput="onReplyInput" data-id="{{fb.id}}" />
+        <view class="reply-btn" bindtap="submitReply" data-id="{{fb.id}}">回复</view>
+      </view>
+    </view>
+  </view>
+
+</view>

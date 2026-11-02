@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.educheck.mapper.ClassCheckinMapper">
+
+    <!-- 联表查询签到历史（含课程名称），支持 MyBatis-Plus 分页 -->
+    <select id="selectHistoryPage" resultType="com.educheck.vo.ClassCheckinHistoryVO">
+        SELECT
+            c.name AS courseName,
+            cc.date,
+            cc.checkin_time,
+            cc.status
+        FROM class_checkin cc
+        LEFT JOIN course c ON cc.course_id = c.id
+        <where>
+            cc.user_id = #{userId}
+        </where>
+        ORDER BY cc.date DESC, cc.checkin_time DESC
+    </select>
+
+</mapper>

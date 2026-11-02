@@ -1,0 +1,84 @@
+﻿<view class="page-container">
+  <view class="page-header">
+    <text class="page-title">📋 请假审批</text>
+    <text class="page-subtitle">处理学生的请假申请</text>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-bar" style="margin-bottom:24rpx;">
+    <view class="stats-bar-item">
+      <text class="stats-bar-num" style="color: #6C5CE7;">{{stats.total}}</text>
+      <text class="stats-bar-label">总申请</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-bar-item">
+      <text class="stats-bar-num" style="color: #E89B3C;">{{stats.pending}}</text>
+      <text class="stats-bar-label">待审批</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-bar-item">
+      <text class="stats-bar-num" style="color: #3BAD85;">{{stats.approved}}</text>
+      <text class="stats-bar-label">已通过</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-bar-item">
+      <text class="stats-bar-num" style="color: #FF5A6A;">{{stats.rejected}}</text>
+      <text class="stats-bar-label">已驳回</text>
+    </view>
+  </view>
+
+  <!-- 筛选 -->
+  <view class="toggle-pill" style="margin-bottom:24rpx;">
+    <view class="toggle-pill-item {{filterStatus === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-status="all">全部</view>
+    <view class="toggle-pill-item {{filterStatus === 'pending' ? 'active' : ''}}" bindtap="switchFilter" data-status="pending">⏳ 待审批</view>
+    <view class="toggle-pill-item {{filterStatus === 'approved' ? 'active' : ''}}" bindtap="switchFilter" data-status="approved">✅ 已通过</view>
+    <view class="toggle-pill-item {{filterStatus === 'rejected' ? 'active' : ''}}" bindtap="switchFilter" data-status="rejected">❌ 已驳回</view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="leave-list">
+    <view class="leave-item" wx:for="{{leaves}}" wx:for-item="item" wx:key="id" bindtap="viewDetail" data-id="{{item.id}}" hover-class="item-active">
+      <view class="leave-top">
+        <view class="leave-top-left">
+          <view class="leave-avatar-wrap">
+            <image src="/images/default_avatar.png" mode="aspectFill" class="leave-avatar"></image>
+          </view>
+          <view class="leave-name-box">
+            <text class="leave-student-name">{{item.studentName}}</text>
+            <text class="leave-type-tag {{item.typeClass}}">{{item.typeName}}</text>
+          </view>
+        </view>
+        <view class="leave-status {{item.statusClass}}">
+          <view class="status-dot {{item.statusClass}}"></view>
+          <text>{{item.statusName}}</text>
+        </view>
+      </view>
+      <view class="leave-detail">
+        <view class="leave-detail-row">
+          <text class="detail-label">📅 时段</text>
+          <text class="detail-value">{{item.startDate}} ~ {{item.endDate}}</text>
+        </view>
+        <view class="leave-detail-row">
+          <text class="detail-label">📝 事由</text>
+          <text class="detail-value">{{item.reason}}</text>
+        </view>
+      </view>
+      <view class="leave-footer">
+        <text class="leave-submit">提交于 {{item.submitTime}}</text>
+        <text class="leave-days-badge">{{item.days}} 天</text>
+      </view>
+      <view class="leave-actions" wx:if="{{item.status === 'pending'}}">
+        <view class="leave-action-btn action-approve" catchtap="approveLeave" data-id="{{item.id}}">✅ 批准</view>
+        <view class="leave-action-btn action-reject" catchtap="rejectLeave" data-id="{{item.id}}">❌ 驳回</view>
+      </view>
+      <view class="leave-reply" wx:if="{{item.rejectReason}}">
+        <text>驳回原因：{{item.rejectReason}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{leaves.length === 0 && !loading}}">
+    <text>📭</text>
+    <text>暂无请假记录</text>
+  </view>
+</view>
